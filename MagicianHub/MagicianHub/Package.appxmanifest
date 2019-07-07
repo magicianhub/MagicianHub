@@ -9,13 +9,13 @@
   <Identity
     Name="70914d89-7a85-44bd-b7a0-20cde616af88"
     Publisher="CN=Mairw"
-    Version="1.0.0.0" />
+    Version="0.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="70914d89-7a85-44bd-b7a0-20cde616af88" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MagicianHub</DisplayName>
-    <PublisherDisplayName>Mairw</PublisherDisplayName>
+    <PublisherDisplayName>MairwunNx</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -35,10 +35,12 @@
         DisplayName="MagicianHub"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="MagicianHub"
+        Description="Open source github client for Windows 10, written on UWP."
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
