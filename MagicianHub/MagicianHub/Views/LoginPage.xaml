@@ -1,0 +1,60 @@
+﻿<Page x:Class="MagicianHub.Views.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:MagicianHub.Views"
+      xmlns:localConverters="using:MagicianHub.Converters"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <localConverters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
+    </Page.Resources>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Margin="0,0,0,25"
+                       Style="{StaticResource HeaderTextBlockStyle}"
+                       Text="Log in to GitHub" />
+            <TextBox Margin="0,0,0,15"
+                     IsEnabled="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true, Mode=TwoWay}"
+                     PlaceholderText="Username or email address" />
+            <PasswordBox Margin="0,0,0,15"
+                         IsEnabled="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true, Mode=TwoWay}"
+                         PlaceholderText="Password"
+                         Visibility="{Binding ElementName=UseAccessTokenCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" />
+            <PasswordBox Margin="0,0,0,15"
+                         IsEnabled="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true, Mode=TwoWay}"
+                         PlaceholderText="Access token"
+                         Visibility="{Binding ElementName=UseAccessTokenCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}" />
+            <TextBox x:Name="VerificationCodeTextBox"
+                     Margin="0,0,0,15"
+                     PlaceholderText="Verification code"
+                     Visibility="Collapsed" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Width="100"
+                        Margin="0,0,5,0"
+                        Content="Log in" />
+                <Button Grid.Column="1"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Content="Log in via browser" />
+            </Grid>
+            <CheckBox x:Name="UseAccessTokenCheckBox"
+                      Margin="0,10,0,0"
+                      Content="Use access token instead password" />
+            <HyperlinkButton Margin="0,15,0,0"
+                             HorizontalAlignment="Right"
+                             Content="Forgot password?"
+                             Visibility="Collapsed" />
+        </StackPanel>
+    </Grid>
+</Page>
