@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using MagicianHub.Converters;
+﻿using MagicianHub.Converters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Windows.UI.Xaml;
 
 namespace MagicianHub.Tests.Converters
 {

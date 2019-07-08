@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using MagicianHub.Extensions;
 using MagicianHub.Views;
 
 namespace MagicianHub
@@ -61,6 +62,7 @@ namespace MagicianHub
                 }
 
                 // Ensure the current window is active
+                Window.Current.CoreWindow.InitExtension();
                 Window.Current.Activate();
             }
         }

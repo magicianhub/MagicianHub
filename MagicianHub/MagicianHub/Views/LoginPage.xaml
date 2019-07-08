@@ -38,7 +38,8 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"
+                <Button x:Name="LogInButton"
+                        Grid.Column="0"
                         Width="100"
                         Margin="0,0,5,0"
                         Content="Log in" />
@@ -51,10 +52,11 @@
             <CheckBox x:Name="UseAccessTokenCheckBox"
                       Margin="0,10,0,0"
                       Content="Use access token instead password" />
-            <HyperlinkButton Margin="0,15,0,0"
+            <HyperlinkButton x:Name="ForgotPasswordHyperlink"
+                             Margin="0,15,0,0"
                              HorizontalAlignment="Right"
                              Content="Forgot password?"
-                             Visibility="Collapsed" />
+                             Visibility="{x:Bind IsWrongPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
         </StackPanel>
     </Grid>
 </Page>
