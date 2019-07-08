@@ -11,6 +11,7 @@
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <localConverters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
+        <localConverters:NegateVisibilityValueConverter x:Key="NegateVisibilityValueConverter" />
     </Page.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center"
@@ -30,9 +31,14 @@
                          PlaceholderText="Access token"
                          Visibility="{Binding ElementName=UseAccessTokenCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}" />
             <TextBox x:Name="VerificationCodeTextBox"
-                     Margin="0,0,0,15"
+                     Margin="0,0,0,10"
                      PlaceholderText="Verification code"
-                     Visibility="Collapsed" />
+                     Visibility="{x:Bind IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <TextBlock MaxWidth="320"
+                       Margin="0,0,0,15"
+                       Text="Open the two-factor authentication app on your device to view your authentication code and verify your identity."
+                       TextWrapping="WrapWholeWords"
+                       Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility}" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -42,12 +48,20 @@
                         Grid.Column="0"
                         Width="100"
                         Margin="0,0,5,0"
-                        Content="Log in" />
+                        Content="Log in"
+                        Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource NegateVisibilityValueConverter}}" />
+                <Button x:Name="VerifyButton"
+                        Grid.Column="0"
+                        Width="100"
+                        Margin="0,0,5,0"
+                        Content="Verify"
+                        Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility}" />
                 <Button Grid.Column="1"
                         Margin="5,0,0,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Content="Log in via browser" />
+                        Content="Log in via browser"
+                        IsEnabled="{Binding ElementName=VerifyButton, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true}" />
             </Grid>
             <CheckBox x:Name="UseAccessTokenCheckBox"
                       Margin="0,10,0,0"

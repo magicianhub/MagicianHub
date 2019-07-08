@@ -25,5 +25,19 @@ namespace MagicianHub.Views
                 TypeOfThis,
                 new PropertyMetadata(false)
             );
+
+        public bool IsInValidation
+        {
+            get => (bool) GetValue(IsInValidationProperty);
+            set => SetValue(IsInValidationProperty, value);
+        }
+
+        public static readonly DependencyProperty IsInValidationProperty =
+            DependencyProperty.Register(
+                nameof(IsInValidation),
+                typeof(bool),
+                TypeOfThis,
+                new PropertyMetadata(false)
+            );
     }
 }

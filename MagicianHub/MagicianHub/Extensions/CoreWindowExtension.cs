@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Windows.UI.Core;
+﻿using Windows.UI.Core;
 
 namespace MagicianHub.Extensions
 {
