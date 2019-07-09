@@ -14,7 +14,8 @@
         <localConverters:NegateVisibilityValueConverter x:Key="NegateVisibilityValueConverter" />
     </Page.Resources>
     <Grid>
-        <StackPanel HorizontalAlignment="Center"
+        <StackPanel MaxWidth="320"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <TextBlock Margin="0,0,0,25"
                        Style="{StaticResource HeaderTextBlockStyle}"
@@ -34,8 +35,7 @@
                      Margin="0,0,0,10"
                      PlaceholderText="Verification code"
                      Visibility="{x:Bind IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <TextBlock MaxWidth="320"
-                       Margin="0,0,0,15"
+            <TextBlock Margin="0,0,0,15"
                        Text="Open the two-factor authentication app on your device to view your authentication code and verify your identity."
                        TextWrapping="WrapWholeWords"
                        Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility}" />

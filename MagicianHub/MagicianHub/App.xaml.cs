@@ -1,14 +1,13 @@
-﻿using System;
-using System.Diagnostics;
+﻿using MagicianHub.Extensions;
+using MagicianHub.Notifications;
+using MagicianHub.Views;
+using Microsoft.QueryStringDotNET;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using MagicianHub.Extensions;
-using MagicianHub.Notifications;
-using MagicianHub.Views;
-using Microsoft.QueryStringDotNET;
 
 namespace MagicianHub
 {
@@ -66,9 +65,7 @@ namespace MagicianHub
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(
-                        typeof(LoginPage)
-                    );
+                    rootFrame.Navigate(typeof(LoginPage));
                 }
             }
 
