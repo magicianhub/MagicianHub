@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -21,15 +22,28 @@ namespace MagicianHub
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            OnLaunchedOrActivated(e, null, false);
+        }
+
+        protected override void OnActivated(IActivatedEventArgs e)
+        {
+            OnLaunchedOrActivated(null, e, true);
+        }
+
+        private void OnLaunchedOrActivated(
+            LaunchActivatedEventArgs launchActivatedEventArgs,
+            IActivatedEventArgs activatedEventArgs,
+            bool isActivated)
+        {
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
             {
                 rootFrame = new Frame();
-
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (!isActivated && launchActivatedEventArgs.PreviousExecutionState ==
+                    ApplicationExecutionState.Terminated)
                 {
                     // TODO: Load state from previously suspended application
                 }
@@ -37,21 +51,37 @@ namespace MagicianHub
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated) return;
-            if (rootFrame.Content == null)
+            if (!isActivated)
             {
-                rootFrame.Navigate(typeof(LoginPage), e.Arguments);
+                if (launchActivatedEventArgs.PrelaunchActivated) return;
+                if (rootFrame.Content == null)
+                {
+                    rootFrame.Navigate(
+                        typeof(LoginPage),
+                        launchActivatedEventArgs.Arguments
+                    );
+                }
+            }
+            else
+            {
+                if (rootFrame.Content == null)
+                {
+                    rootFrame.Navigate(
+                        typeof(LoginPage)
+                    );
+                }
             }
 
             Window.Current.CoreWindow.InitExtension();
             Window.Current.Activate();
-        }
 
-        protected override void OnActivated(IActivatedEventArgs e)
-        {
-            if (!(e is ToastNotificationActivatedEventArgs toastActivationArgs)) return;
-            QueryString args = QueryString.Parse(toastActivationArgs.Argument);
-            NotificationBaseHandler.ProcessNotify(args);
+            if (isActivated)
+            {
+                if (!(activatedEventArgs is
+                    ToastNotificationActivatedEventArgs toastActivationArgs)) return;
+                QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+                NotificationBaseHandler.ProcessNotify(args);
+            }
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)

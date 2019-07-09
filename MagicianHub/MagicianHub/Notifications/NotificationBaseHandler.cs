@@ -1,5 +1,6 @@
 ﻿using MagicianHub.Authorization;
 using Microsoft.QueryStringDotNET;
+using Windows.UI.Xaml;
 
 namespace MagicianHub.Notifications
 {
@@ -7,11 +8,17 @@ namespace MagicianHub.Notifications
     {
         public static void ProcessNotify(QueryString args)
         {
-            if (args["tryReconnect"] == "tryReconnect")
+            if (args == null)
+            {
+                Window.Current.Activate();
+                return;
+            }
+            if (args.Contains("tryReconnect"))
             {
                 AuthorizationNotifyHandler.ProcessAuthorizationNotify(
                     AuthorizationNotifyTypes.TryReconnect
                 );
+                return;
             }
         }
     }
