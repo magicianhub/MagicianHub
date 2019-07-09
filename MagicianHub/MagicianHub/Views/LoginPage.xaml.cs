@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace MagicianHub.Views
@@ -6,10 +9,21 @@ namespace MagicianHub.Views
     public sealed partial class LoginPage
     {
         private static readonly Type TypeOfThis = typeof(LoginPage);
+        private static CoreDispatcher dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
 
         public LoginPage()
         {
             InitializeComponent();
+            Task.Run(Test);
+        }
+
+        private void Test()
+        {
+            Thread.Sleep(3000);
+            _ = dispatcher.RunAsync(
+                CoreDispatcherPriority.Normal,
+                Authorization.AuthorizationNotify.NotifyWrongPassword
+            );
         }
 
         public bool IsWrongPassword

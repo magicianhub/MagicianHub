@@ -10,50 +10,10 @@ namespace MagicianHub.Authorization
         public static void NotifyWrongPassword()
         {
             if (Window.Current.CoreWindow.IsActive()) return;
-            ToastContent content = GenerateToastContent();
+            ToastContent content = AuthorizationNotifyBuilder.GenerateToastWrongPasswordContent();
             ToastNotificationManager
                 .CreateToastNotifier()
                 .Show(new ToastNotification(content.GetXml()));
-        }
-
-        private static ToastContent GenerateToastContent()
-        {
-            return new ToastContent()
-            {
-                Scenario = ToastScenario.Default,
-                Visual = new ToastVisual()
-                {
-                    BindingGeneric = new ToastBindingGeneric()
-                    {
-                        Children =
-                        {
-                            new AdaptiveText()
-                            {
-                                Text = "MagicianHub - Log in"
-                            },
-
-                            new AdaptiveText()
-                            {
-                                Text = "Authorization failed, ERR: 430"
-                            },
-
-                            new AdaptiveText()
-                            {
-                                Text = "Maybe: wrong password or login"
-                            }
-                        }
-                    }
-                },
-
-                Actions = new ToastActionsCustom()
-                {
-                    Buttons =
-                    {
-                        new ToastButton("Try reconnect", ""),
-                        new ToastButton("Understand", "")
-                    }
-                }
-            };
         }
     }
 }
