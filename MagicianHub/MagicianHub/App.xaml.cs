@@ -34,6 +34,13 @@ namespace MagicianHub
             IActivatedEventArgs activatedEventArgs,
             bool isActivated)
         {
+#if DEBUG
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                DebugSettings.EnableFrameRateCounter = true;
+            }
+#endif
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
