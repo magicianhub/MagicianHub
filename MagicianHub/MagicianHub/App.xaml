@@ -1,4 +1,8 @@
 ﻿<Application x:Class="MagicianHub.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:MagicianHub" />
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <vm:ViewModelLocator xmlns:vm="using:MagicianHub.ViewModels"
+                             x:Key="Locator" />
+    </Application.Resources>
+</Application>

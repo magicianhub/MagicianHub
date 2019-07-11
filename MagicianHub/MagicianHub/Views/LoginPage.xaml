@@ -7,6 +7,7 @@
       xmlns:localConverters="using:MagicianHub.Converters"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      DataContext="{Binding LoginPageInstance, Source={StaticResource Locator}}"
       mc:Ignorable="d">
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -14,12 +15,14 @@
         <localConverters:NegateVisibilityValueConverter x:Key="NegateVisibilityValueConverter" />
     </Page.Resources>
     <Grid>
-        <StackPanel MaxWidth="320"
+        <StackPanel Width="{Binding ElementName=TitleTextBlock, Path=ActualWidth}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <TextBlock Margin="0,0,0,25"
+            <TextBlock x:Name="TitleTextBlock"
+                       Margin="0,0,0,25"
                        Style="{StaticResource HeaderTextBlockStyle}"
-                       Text="Log in to GitHub" />
+                       Text="Log in to GitHub"
+                       TextWrapping="NoWrap" />
             <TextBox x:Name="LoginTextBox"
                      Margin="0,0,0,15"
                      IsEnabled="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true, Mode=TwoWay}"
@@ -37,7 +40,7 @@
                      Margin="0,0,0,10"
                      x:Load="False"
                      PlaceholderText="Verification code"
-                     Visibility="{x:Bind IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
+                     Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
             <TextBlock x:Name="VerifyCodeMessage"
                        Margin="0,0,0,15"
                        x:Load="False"
@@ -78,7 +81,7 @@
                              HorizontalAlignment="Right"
                              x:Load="False"
                              Content="Forgot password?"
-                             Visibility="{x:Bind IsWrongPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
+                             Visibility="{Binding IsWrongPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
         </StackPanel>
     </Grid>
 </Page>
