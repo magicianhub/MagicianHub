@@ -58,10 +58,9 @@
             <!--  ReSharper disable once UnusedMember.Local  -->
             <TextBlock x:Name="TwoFactorTextBlock"
                        Margin="0,0,0,15"
-                       x:Load="False"
                        Text="Open the two-factor authentication app on your device to view your authentication code and verify your identity."
                        TextWrapping="WrapWholeWords"
-                       Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility}" />
+                       Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -79,7 +78,7 @@
                         Margin="0,0,5,0"
                         x:Load="False"
                         Content="Verify"
-                        Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility}" />
+                        Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
                 <Button Grid.Column="1"
                         Margin="5,0,0,0"
                         HorizontalAlignment="Stretch"

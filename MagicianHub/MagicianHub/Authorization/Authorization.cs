@@ -23,5 +23,10 @@ namespace MagicianHub.Authorization
         {
             return VerificationResponseTypes.Success;
         }
+
+        public static void SendVerificationCode()
+        {
+            
+        }
     }
 }

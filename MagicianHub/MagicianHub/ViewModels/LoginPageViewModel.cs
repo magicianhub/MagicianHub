@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GraphQL;
 using MagicianHub.Authorization;
+using MagicianHub.Views;
 
 namespace MagicianHub.ViewModels
 {
@@ -34,7 +36,7 @@ namespace MagicianHub.ViewModels
                 Password,
                 AccessToken,
                 UseAccessToken
-            ).ContinueWith(task =>
+            ).ContinueWith(async task =>
             {
                 var responseResult = task.Result;
                 switch (responseResult)
@@ -42,6 +44,7 @@ namespace MagicianHub.ViewModels
                     case AuthorizationResponseTypes.NeedVerifyCode:
                         IsInLoginIn = false;
                         IsInValidation = true;
+                        await new TwoFactorAuthModeDialog().ShowAsync();
                         break;
                     case AuthorizationResponseTypes.WrongCredentials:
                         IsInLoginIn = false;

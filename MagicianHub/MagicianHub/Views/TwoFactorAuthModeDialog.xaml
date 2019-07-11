@@ -5,9 +5,10 @@
                xmlns:local="using:MagicianHub.Views"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                Title="Two-factor authentication"
-               PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+               DataContext="{Binding TwoFactorAuthModeDialogViewModel, Source={StaticResource Locator}}"
+               PrimaryButtonCommand="{Binding ContinueCommand}"
                PrimaryButtonText="Continue"
-               SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+               SecondaryButtonCommand="{Binding CancelCommand}"
                SecondaryButtonText="Cancel"
                mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Stretch"
@@ -16,9 +17,7 @@
                    TextWrapping="WrapWholeWords" />
         <ComboBox Margin="0,10,0,0"
                   HorizontalAlignment="Stretch"
-                  SelectedIndex="0">
-            <ComboBoxItem Content="via authentication app" />
-            <ComboBoxItem Content="via phone number" />
-        </ComboBox>
+                  ItemsSource="{Binding VerifyMethods}"
+                  SelectedIndex="0" />
     </StackPanel>
 </ContentDialog>

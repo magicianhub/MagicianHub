@@ -12,9 +12,13 @@ namespace MagicianHub.ViewModels
 
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
             SimpleIoc.Default.Register<LoginPageViewModel>();
+            SimpleIoc.Default.Register<TwoFactorAuthModeDialogViewModel>();
         }
 
         public LoginPageViewModel LoginPageInstance => 
             ServiceLocator.Current.GetInstance<LoginPageViewModel>();
+        
+        public TwoFactorAuthModeDialogViewModel TwoFactorAuthModeDialogViewModel =>
+            ServiceLocator.Current.GetInstance<TwoFactorAuthModeDialogViewModel>();
     }
 }
