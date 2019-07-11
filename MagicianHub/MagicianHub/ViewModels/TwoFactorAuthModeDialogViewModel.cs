@@ -1,7 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
+using MagicianHub.Verification;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 
@@ -25,7 +26,22 @@ namespace MagicianHub.ViewModels
         {
             var locator = Application.Current.Resources["Locator"] as ViewModelLocator;
             if (locator == null) return;
-            Authorization.Authorization.SendVerificationCode();
+            if (SelectedVerifyMode == 0)
+            {
+                locator.LoginPageInstance.VerificationRequestType =
+                    VerificationRequestTypes.Application;
+                Authorization.Authorization.SendVerificationCode(
+                    VerificationRequestTypes.Application
+                );
+            }
+            else
+            {
+                locator.LoginPageInstance.VerificationRequestType =
+                    VerificationRequestTypes.Phone;
+                Authorization.Authorization.SendVerificationCode(
+                    VerificationRequestTypes.Phone
+                );
+            }
         }
 
         public ICommand CancelCommand { get; }
@@ -46,6 +62,18 @@ namespace MagicianHub.ViewModels
                 if (value == _verifyMethods) return;
                 _verifyMethods = value;
                 RaisePropertyChanged(nameof(VerifyMethods));
+            }
+        }
+
+        private int _selectedVerifyMode;
+        public int SelectedVerifyMode
+        {
+            get => _selectedVerifyMode;
+            set
+            {
+                if (value == _selectedVerifyMode) return;
+                _selectedVerifyMode = value;
+                RaisePropertyChanged(nameof(SelectedVerifyMode));
             }
         }
     }

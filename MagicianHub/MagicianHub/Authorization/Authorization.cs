@@ -2,6 +2,7 @@
 using MagicianHub.Views;
 using System;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace MagicianHub.Authorization
 {
@@ -24,7 +25,8 @@ namespace MagicianHub.Authorization
             return VerificationResponseTypes.Success;
         }
 
-        public static void SendVerificationCode()
+        public static void SendVerificationCode(
+            VerificationRequestTypes verificationRequestType)
         {
             
         }

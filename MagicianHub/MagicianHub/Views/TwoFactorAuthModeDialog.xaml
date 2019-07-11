@@ -18,6 +18,6 @@
         <ComboBox Margin="0,10,0,0"
                   HorizontalAlignment="Stretch"
                   ItemsSource="{Binding VerifyMethods}"
-                  SelectedIndex="0" />
+                  SelectedIndex="{Binding SelectedVerifyMode, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

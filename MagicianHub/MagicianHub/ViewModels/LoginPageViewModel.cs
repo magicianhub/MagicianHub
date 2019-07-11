@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GraphQL;
 using MagicianHub.Authorization;
+using MagicianHub.Verification;
 using MagicianHub.Views;
 
 namespace MagicianHub.ViewModels
@@ -14,6 +16,7 @@ namespace MagicianHub.ViewModels
         public LoginPageViewModel()
         {
             AuthorizationCommand = new RelayCommand(DoAuthorization);
+            VerificationRequestType = VerificationRequestTypes.Application;
         }
 
         public ICommand AuthorizationCommand { get; }
@@ -134,6 +137,18 @@ namespace MagicianHub.ViewModels
                 if (value == _accessToken) return;
                 _accessToken = value;
                 RaisePropertyChanged(nameof(AccessToken));
+            }
+        }
+        
+        private VerificationRequestTypes _verificationRequestType;
+        public VerificationRequestTypes VerificationRequestType
+        {
+            get => _verificationRequestType;
+            set
+            {
+                if (value == _verificationRequestType) return;
+                _verificationRequestType = value;
+                RaisePropertyChanged(nameof(VerificationRequestType));
             }
         }
     }
