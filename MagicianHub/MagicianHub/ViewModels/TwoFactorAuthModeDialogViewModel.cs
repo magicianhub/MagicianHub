@@ -2,16 +2,16 @@
 using GalaSoft.MvvmLight.Command;
 using MagicianHub.Verification;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows.Input;
-using Windows.UI.Xaml;
 
 namespace MagicianHub.ViewModels
 {
     public class TwoFactorAuthModeDialogViewModel : ViewModelBase
     {
-        public TwoFactorAuthModeDialogViewModel()
+        private readonly LoginPageViewModel _loginPageViewModel;
+        public TwoFactorAuthModeDialogViewModel(LoginPageViewModel loginPageViewModel)
         {
+            _loginPageViewModel = loginPageViewModel;
             ContinueCommand = new RelayCommand(Continue);
             CancelCommand = new RelayCommand(Cancel);
             VerifyMethods = new ObservableCollection<string>
@@ -24,11 +24,9 @@ namespace MagicianHub.ViewModels
         public ICommand ContinueCommand { get; }
         private void Continue()
         {
-            var locator = Application.Current.Resources["Locator"] as ViewModelLocator;
-            if (locator == null) return;
             if (SelectedVerifyMode == 0)
             {
-                locator.LoginPageInstance.VerificationRequestType =
+                _loginPageViewModel.VerificationRequestType =
                     VerificationRequestTypes.Application;
                 Authorization.Authorization.SendVerificationCode(
                     VerificationRequestTypes.Application
@@ -36,7 +34,7 @@ namespace MagicianHub.ViewModels
             }
             else
             {
-                locator.LoginPageInstance.VerificationRequestType =
+                _loginPageViewModel.VerificationRequestType =
                     VerificationRequestTypes.Phone;
                 Authorization.Authorization.SendVerificationCode(
                     VerificationRequestTypes.Phone
@@ -47,10 +45,8 @@ namespace MagicianHub.ViewModels
         public ICommand CancelCommand { get; }
         private void Cancel()
         {
-            var locator = Application.Current.Resources["Locator"] as ViewModelLocator;
-            if (locator == null) return;
-            locator.LoginPageInstance.IsInValidation = false;
-            locator.LoginPageInstance.AccessToken = "";
+            _loginPageViewModel.IsInValidation = false;
+            _loginPageViewModel.AccessToken = "";
         }
 
         private ObservableCollection<string> _verifyMethods;
