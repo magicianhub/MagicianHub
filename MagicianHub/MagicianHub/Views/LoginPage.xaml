@@ -23,7 +23,8 @@
             <ProgressRing Width="61"
                           Height="61"
                           IsActive="True" />
-            <TextBlock Margin="45,0,0,0"
+            <TextBlock x:Uid="JustMomentTextBlock"
+                       Margin="45,0,0,0"
                        Style="{StaticResource HeaderTextBlockStyle}"
                        Text="Just a Moment" />
         </StackPanel>
@@ -32,31 +33,37 @@
                     VerticalAlignment="Center"
                     Visibility="{Binding IsInLoginIn, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
             <TextBlock x:Name="TitleTextBlock"
+                       x:Uid="LogInToGitHub"
                        Margin="0,0,0,25"
                        Style="{StaticResource HeaderTextBlockStyle}"
                        Text="Log in to GitHub"
                        TextWrapping="NoWrap" />
-            <TextBox Margin="0,0,0,15"
+            <TextBox x:Uid="LoginTextBox"
+                     Margin="0,0,0,15"
                      IsEnabled="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true, Mode=TwoWay}"
                      PlaceholderText="Username or email address"
                      Text="{Binding Login, Mode=TwoWay}" />
-            <PasswordBox Margin="0,0,0,15"
+            <PasswordBox x:Uid="PasswordTextBox"
+                         Margin="0,0,0,15"
                          IsEnabled="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true, Mode=TwoWay}"
                          Password="{Binding Password, Mode=TwoWay}"
                          PlaceholderText="Password"
                          Visibility="{Binding ElementName=UseAccessTokenCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" />
-            <PasswordBox Margin="0,0,0,15"
+            <PasswordBox x:Uid="AccessTokenTextBox"
+                         Margin="0,0,0,15"
                          IsEnabled="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true, Mode=TwoWay}"
                          Password="{Binding AccessToken, Mode=TwoWay}"
                          PlaceholderText="Access token"
                          Visibility="{Binding ElementName=UseAccessTokenCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=false}" />
             <TextBox x:Name="VerificationCodeTextBox"
+                     x:Uid="VerifyCodeTextBox"
                      Margin="0,0,0,10"
                      x:Load="False"
                      PlaceholderText="Verification code"
                      Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
             <!--  ReSharper disable once UnusedMember.Local  -->
             <TextBlock x:Name="TwoFactorTextBlock"
+                       x:Uid="VerifyTextBlock"
                        Margin="0,0,0,15"
                        Text="Open the two-factor authentication app on your device to view your authentication code and verify your identity."
                        TextWrapping="WrapWholeWords"
@@ -66,20 +73,23 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"
-                        Width="100"
+                <Button x:Uid="LogInButton"
+                        Grid.Column="0"
+                        MinWidth="100"
                         Margin="0,0,5,0"
                         Command="{Binding AuthorizationCommand}"
                         Content="Log in"
                         Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource NegateVisibilityValueConverter}}" />
                 <Button x:Name="VerifyButton"
+                        x:Uid="VerifyButton"
                         Grid.Column="0"
                         Width="100"
                         Margin="0,0,5,0"
                         x:Load="False"
                         Content="Verify"
                         Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <Button Grid.Column="1"
+                <Button x:Uid="LogInViaBrowser"
+                        Grid.Column="1"
                         Margin="5,0,0,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
@@ -87,12 +97,14 @@
                         IsEnabled="{Binding ElementName=VerifyButton, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true}" />
             </Grid>
             <CheckBox x:Name="UseAccessTokenCheckBox"
+                      x:Uid="AccessTokenInsteadPassword"
                       Margin="0,10,0,0"
                       Content="Use access token instead password"
                       IsChecked="{Binding UseAccessToken, Mode=TwoWay}"
                       Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource NegateVisibilityValueConverter}}" />
             <!--  ReSharper disable once UnusedMember.Local  -->
             <HyperlinkButton x:Name="ForgotPasswordHyperLink"
+                             x:Uid="ForgotPasswordLink"
                              Margin="0,15,0,0"
                              HorizontalAlignment="Right"
                              x:Load="False"

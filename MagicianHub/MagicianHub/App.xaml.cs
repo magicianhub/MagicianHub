@@ -5,6 +5,7 @@ using Microsoft.QueryStringDotNET;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -40,7 +41,7 @@ namespace MagicianHub
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
+            ApplicationLanguages.PrimaryLanguageOverride = "ru-ru";
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
