@@ -41,7 +41,7 @@ namespace MagicianHub
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            ApplicationLanguages.PrimaryLanguageOverride = "ru-ru";
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
