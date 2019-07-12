@@ -123,6 +123,18 @@
   <data name="AccessTokenTextBox.PlaceholderText" xml:space="preserve">
     <value>Access token</value>
   </data>
+  <data name="AuthDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="AuthDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AuthDialog.Title" xml:space="preserve">
+    <value>Two-factor authentication</value>
+  </data>
+  <data name="AuthDialogTextBlock.Text" xml:space="preserve">
+    <value>Choose an authentication method that suits you best</value>
+  </data>
   <data name="ForgotPasswordLink.Content" xml:space="preserve">
     <value>Forgot password?</value>
   </data>
@@ -152,5 +164,11 @@
   </data>
   <data name="VerifyTextBlock.Text" xml:space="preserve">
     <value>Open the two-factor authentication app on your device to view your authentication code and verify your identity.</value>
+  </data>
+  <data name="ViaAuthApp" xml:space="preserve">
+    <value>via authentication app</value>
+  </data>
+  <data name="ViaPhone" xml:space="preserve">
+    <value>via phone number</value>
   </data>
 </root>

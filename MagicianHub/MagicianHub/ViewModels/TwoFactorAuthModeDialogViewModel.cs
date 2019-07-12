@@ -1,8 +1,10 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MagicianHub.Verification;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 
 namespace MagicianHub.ViewModels
 {
@@ -16,8 +18,8 @@ namespace MagicianHub.ViewModels
             CancelCommand = new RelayCommand(Cancel);
             VerifyMethods = new ObservableCollection<string>
             {
-                "via authentication app",
-                "via phone number"
+                ResourceLoader.GetForCurrentView().GetString("ViaAuthApp"),
+                ResourceLoader.GetForCurrentView().GetString("ViaPhone")
             };
         }
 
@@ -46,7 +48,7 @@ namespace MagicianHub.ViewModels
         private void Cancel()
         {
             _loginPageViewModel.IsInValidation = false;
-            _loginPageViewModel.AccessToken = "";
+            _loginPageViewModel.AccessToken = string.Empty;
         }
 
         private ObservableCollection<string> _verifyMethods;
