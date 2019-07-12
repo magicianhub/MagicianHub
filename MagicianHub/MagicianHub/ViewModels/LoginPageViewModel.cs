@@ -17,6 +17,7 @@ namespace MagicianHub.ViewModels
         {
             AuthorizationCommand = new RelayCommand(DoAuthorization);
             VerificationRequestType = VerificationRequestTypes.Application;
+            UseAccessToken = true;
         }
 
         public ICommand AuthorizationCommand { get; }
