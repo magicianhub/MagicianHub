@@ -1,13 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GraphQL;
 using MagicianHub.Authorization;
 using MagicianHub.Verification;
-using MagicianHub.Views;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MagicianHub.ViewModels
 {
@@ -16,23 +14,17 @@ namespace MagicianHub.ViewModels
         public LoginPageViewModel()
         {
             AuthorizationCommand = new RelayCommand(DoAuthorization);
+            VerificationCommand = new RelayCommand(DoVerification);
             VerificationRequestType = VerificationRequestTypes.Application;
-            UseAccessToken = true;
+            UseAccessToken = false;
         }
 
         public ICommand AuthorizationCommand { get; }
         private void DoAuthorization()
         {
             if (Login.IsEmpty()) return;
-
-            if (UseAccessToken)
-            {
-                if (AccessToken.IsEmpty()) return;
-            }
-            else
-            {
-                if (Password.IsEmpty()) return;
-            }
+            if (UseAccessToken && AccessToken.IsEmpty()) return;
+            if (!UseAccessToken && Password.IsEmpty()) return;
 
             IsInLoginIn = true;
             Authorization.Authorization.DoAuthorizationAsync(
@@ -40,20 +32,52 @@ namespace MagicianHub.ViewModels
                 Password,
                 AccessToken,
                 UseAccessToken
-            ).ContinueWith(async task =>
+            ).ContinueWith(task =>
             {
                 var responseResult = task.Result;
                 switch (responseResult)
                 {
-                    case AuthorizationResponseTypes.NeedVerifyCode:
+                    case AuthorizationResponseTypes.Success:
+                        IsInLoginIn = false;
+                        Debug.WriteLine(responseResult);
+                        break;
+                    case AuthorizationResponseTypes.NeedVerifyCodeByApp:
                         IsInLoginIn = false;
                         IsInValidation = true;
-                        await new TwoFactorAuthModeDialog().ShowAsync();
                         break;
                     case AuthorizationResponseTypes.WrongCredentials:
                         IsInLoginIn = false;
+                        Login = string.Empty;
+                        Password = string.Empty;
+                        AuthorizationNotify.NotifyWrongPassword();
                         break;
                 }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        public ICommand VerificationCommand { get; }
+        private void DoVerification()
+        {
+            if (VerifyCode.IsEmpty()) return;
+            IsInLoginIn = true;
+
+            Authorization.Authorization.DoVerification(
+                VerifyCode
+            ).ContinueWith(task =>
+            {
+                var responseResult = task.Result;
+                if (responseResult != null)
+                {
+                    UseAccessToken = true;
+                    AccessToken = responseResult;
+                    DoAuthorization();
+                }
+
+                if (responseResult == "Exception")
+                {
+                    Debug.WriteLine("Ex");
+                }
+                
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
@@ -140,7 +164,19 @@ namespace MagicianHub.ViewModels
                 RaisePropertyChanged(nameof(AccessToken));
             }
         }
-        
+
+        private string _verifyCode;
+        public string VerifyCode
+        {
+            get => _verifyCode;
+            set
+            {
+                if (value == _verifyCode) return;
+                _verifyCode = value;
+                RaisePropertyChanged(nameof(VerifyCode));
+            }
+        }
+
         private VerificationRequestTypes _verificationRequestType;
         public VerificationRequestTypes VerificationRequestType
         {

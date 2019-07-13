@@ -60,6 +60,7 @@
                      Margin="0,0,0,10"
                      x:Load="False"
                      PlaceholderText="Verification code"
+                     Text="{Binding VerifyCode, Mode=TwoWay}"
                      Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
             <!--  ReSharper disable once UnusedMember.Local  -->
             <TextBlock x:Name="TwoFactorTextBlock"
@@ -86,6 +87,7 @@
                         Width="100"
                         Margin="0,0,5,0"
                         x:Load="False"
+                        Command="{Binding VerificationCommand}"
                         Content="Verify"
                         Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
                 <Button x:Uid="LogInViaBrowser"

@@ -3,7 +3,8 @@
     public enum AuthorizationResponseTypes
     {
         Success,
-        NeedVerifyCode,
+        NeedVerifyCodeByApp,
+        NeedVerifyCodeByPhone,
         WrongCredentials,
         UnexpectedResponse
     }

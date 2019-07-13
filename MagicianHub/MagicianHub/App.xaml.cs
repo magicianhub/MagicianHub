@@ -2,12 +2,15 @@
 using MagicianHub.Notifications;
 using MagicianHub.Views;
 using Microsoft.QueryStringDotNET;
+using Octokit;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using MagicianHub.Github;
 
 namespace MagicianHub
 {
@@ -17,6 +20,9 @@ namespace MagicianHub
         {
             InitializeComponent();
             Suspending += OnSuspending;
+            GitHubClientBase.Instance = new GitHubClient(
+                new ProductHeaderValue("MagicianHub", "0.0.1")
+            );
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
@@ -34,6 +40,7 @@ namespace MagicianHub
             IActivatedEventArgs activatedEventArgs,
             bool isActivated)
         {
+            ApplicationLanguages.PrimaryLanguageOverride = "en-US";
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
