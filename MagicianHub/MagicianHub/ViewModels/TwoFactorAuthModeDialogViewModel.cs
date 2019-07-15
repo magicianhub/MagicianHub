@@ -30,17 +30,17 @@ namespace MagicianHub.ViewModels
             {
                 _loginPageViewModel.VerificationRequestType =
                     VerificationRequestTypes.Application;
-                Authorization.Authorization.SendVerificationCode(
-                    VerificationRequestTypes.Application
-                );
+//                Authorization.Authorization.SendVerificationCode(
+//                    VerificationRequestTypes.Application
+//                );
             }
             else
             {
                 _loginPageViewModel.VerificationRequestType =
                     VerificationRequestTypes.Phone;
-                Authorization.Authorization.SendVerificationCode(
-                    VerificationRequestTypes.Phone
-                );
+//                Authorization.Authorization.SendVerificationCode(
+//                    VerificationRequestTypes.Phone
+//                );
             }
         }
 

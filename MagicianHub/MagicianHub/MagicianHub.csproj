@@ -131,6 +131,7 @@
     <Compile Include="Notifications\NotificationBaseHandler.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Verification\Verification.cs" />
     <Compile Include="Verification\VerificationRequestTypes.cs" />
     <Compile Include="Verification\VerificationResponseTypes.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />

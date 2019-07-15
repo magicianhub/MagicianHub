@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GraphQL;
 using MagicianHub.Authorization;
 using MagicianHub.Verification;
 using System.Diagnostics;
@@ -16,15 +15,20 @@ namespace MagicianHub.ViewModels
             AuthorizationCommand = new RelayCommand(DoAuthorization);
             VerificationCommand = new RelayCommand(DoVerification);
             VerificationRequestType = VerificationRequestTypes.Application;
-            UseAccessToken = false;
+        }
+
+        private bool ValidateCredentials()
+        {
+            if (string.IsNullOrWhiteSpace(Login)) return false;
+            if (UseAccessToken && string.IsNullOrWhiteSpace(AccessToken)) return false;
+            if (!UseAccessToken && string.IsNullOrWhiteSpace(Password)) return false;
+            return true;
         }
 
         public ICommand AuthorizationCommand { get; }
         private void DoAuthorization()
         {
-            if (Login.IsEmpty()) return;
-            if (UseAccessToken && AccessToken.IsEmpty()) return;
-            if (!UseAccessToken && Password.IsEmpty()) return;
+            if (!ValidateCredentials()) return;
 
             IsInLoginIn = true;
             Authorization.Authorization.DoAuthorizationAsync(
@@ -58,26 +62,26 @@ namespace MagicianHub.ViewModels
         public ICommand VerificationCommand { get; }
         private void DoVerification()
         {
-            if (VerifyCode.IsEmpty()) return;
-            IsInLoginIn = true;
+            if (string.IsNullOrWhiteSpace(VerifyCode)) return;
 
-            Authorization.Authorization.DoVerification(
+            IsInLoginIn = true;
+            Verification.Verification.DoVerificationAsync(
                 VerifyCode
             ).ContinueWith(task =>
             {
-                var responseResult = task.Result;
-                if (responseResult != null)
+                var (response, token) = task.Result;
+                switch (response)
                 {
-                    UseAccessToken = true;
-                    AccessToken = responseResult;
-                    DoAuthorization();
+                    case VerificationResponseTypes.Success:
+                        UseAccessToken = true;
+                        AccessToken = token;
+                        DoAuthorization();
+                        break;
+                    case VerificationResponseTypes.WrongVerifyCode:
+                    case VerificationResponseTypes.UnexpectedResponse:
+                        IsInLoginIn = false;
+                        break;
                 }
-
-                if (responseResult == "Exception")
-                {
-                    Debug.WriteLine("Ex");
-                }
-                
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 

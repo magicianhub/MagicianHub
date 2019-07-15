@@ -2,8 +2,11 @@
 
 namespace MagicianHub.Github
 {
-    public class GitHubClientBase
+    public static class GitHubClientBase
     {
         public static GitHubClient Instance;
+        public const string BaseClientId = "MagicianHub@";
+        // ReSharper disable once InconsistentNaming
+        public const string Client2FAAction = "2FA";
     }
 }
