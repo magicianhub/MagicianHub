@@ -162,7 +162,7 @@
   <data name="VerifyCodeTextBox.PlaceholderText" xml:space="preserve">
     <value>Проверочный код</value>
   </data>
-  <data name="VerifyTextBlock.Text" xml:space="preserve">
+  <data name="VerifyAppText" xml:space="preserve">
     <value>Откройте двухфакторное приложение аутентификации на устройстве для просмотра кода аутентификации и проверки вашей личности.</value>
   </data>
   <data name="ViaAuthApp" xml:space="preserve">
@@ -170,5 +170,8 @@
   </data>
   <data name="ViaPhone" xml:space="preserve">
     <value>через номер телефона</value>
+  </data>
+  <data name="VerifySmsText" xml:space="preserve">
+    <value>Мы только что отправили вам сообщение через SMS с вашим кодом аутентификации. Введите код в форму ниже, чтобы подтвердить свою личность.</value>
   </data>
 </root>

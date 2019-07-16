@@ -12,6 +12,7 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <localConverters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
         <localConverters:NegateVisibilityValueConverter x:Key="NegateVisibilityValueConverter" />
+        <localConverters:VerificationTypeToStringConverter x:Key="VerificationTypeToStringConverter" />
     </Page.Resources>
     <Grid>
         <!--  ReSharper disable once UnusedMember.Local  -->
@@ -66,7 +67,7 @@
             <TextBlock x:Name="TwoFactorTextBlock"
                        x:Uid="VerifyTextBlock"
                        Margin="0,0,0,15"
-                       Text="Open the two-factor authentication app on your device to view your authentication code and verify your identity."
+                       Text="{Binding VerificationRequestType, Converter={StaticResource VerificationTypeToStringConverter}}"
                        TextWrapping="WrapWholeWords"
                        Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
             <Grid>

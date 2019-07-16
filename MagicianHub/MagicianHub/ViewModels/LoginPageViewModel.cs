@@ -46,6 +46,12 @@ namespace MagicianHub.ViewModels
                         Debug.WriteLine(responseResult);
                         break;
                     case AuthorizationResponseTypes.NeedVerifyCodeByApp:
+                        VerificationRequestType = VerificationRequestTypes.Application;
+                        IsInLoginIn = false;
+                        IsInValidation = true;
+                        break;
+                    case AuthorizationResponseTypes.NeedVerifyCodeByPhone:
+                        VerificationRequestType = VerificationRequestTypes.Phone;
                         IsInLoginIn = false;
                         IsInValidation = true;
                         break;
