@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MagicianHub.Authorization;
 using MagicianHub.Verification;
@@ -60,6 +61,10 @@ namespace MagicianHub.ViewModels
                         Login = string.Empty;
                         Password = string.Empty;
                         AuthorizationNotify.NotifyWrongPassword();
+                        if (InAppNotifyIsOpened) InAppNotifyIsOpened = false;
+                        InAppNotifyIsOpened = true;
+                        break;
+                    case AuthorizationResponseTypes.UnexpectedResponse:
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -196,6 +201,18 @@ namespace MagicianHub.ViewModels
                 if (value == _verificationRequestType) return;
                 _verificationRequestType = value;
                 RaisePropertyChanged(nameof(VerificationRequestType));
+            }
+        }
+
+        private bool _inAppNotifyIsOpened;
+        public bool InAppNotifyIsOpened
+        {
+            get => _inAppNotifyIsOpened;
+            set
+            {
+                if (value == _inAppNotifyIsOpened) return;
+                _inAppNotifyIsOpened = value;
+                RaisePropertyChanged(nameof(InAppNotifyIsOpened));
             }
         }
     }

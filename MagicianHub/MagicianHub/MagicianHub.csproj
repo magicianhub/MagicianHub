@@ -128,6 +128,7 @@
     <Compile Include="Converters\NegateVisibilityValueConverter.cs" />
     <Compile Include="Converters\VisibilityToBoolConverter.cs" />
     <Compile Include="Extensions\CoreWindowExtension.cs" />
+    <Compile Include="Extensions\InAppNotificationExtension.cs" />
     <Compile Include="Github\GitHubClientBase.cs" />
     <Compile Include="Notifications\NotificationBaseHandler.cs" />
     <Compile Include="Properties\Annotations.cs" />
