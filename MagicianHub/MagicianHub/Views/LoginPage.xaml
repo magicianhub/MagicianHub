@@ -118,9 +118,9 @@
                              Visibility="{Binding IsWrongPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
         </StackPanel>
         <localExtensions:InAppNotificationExtension MaxWidth="400"
-                                                    IsOpened="{Binding InAppNotifyIsOpened}"
+                                                    IsOpened="{Binding InAppAuthNotifyIsOpened}"
                                                     StayDuration="4000">
-            <TextBlock Text="Incorrect username or password."
+            <TextBlock Text="{Binding InAppAuthNotifyText}"
                        TextWrapping="WrapWholeWords" />
         </localExtensions:InAppNotificationExtension>
     </Grid>

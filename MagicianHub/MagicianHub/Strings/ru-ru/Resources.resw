@@ -174,4 +174,13 @@
   <data name="VerifySmsText" xml:space="preserve">
     <value>Мы только что отправили вам сообщение через SMS с вашим кодом аутентификации. Введите код в форму ниже, чтобы подтвердить свою личность.</value>
   </data>
+  <data name="Incorrect2FACode" xml:space="preserve">
+    <value>Двухфакторная аутентификация не удалась.</value>
+  </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Неправильный логин или пароль.</value>
+  </data>
+  <data name="IncorrectToken" xml:space="preserve">
+    <value>Неверный пользовательский токен доступа</value>
+  </data>
 </root>

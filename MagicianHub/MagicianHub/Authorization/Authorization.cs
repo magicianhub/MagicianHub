@@ -23,7 +23,7 @@ namespace MagicianHub.Authorization
                 }
                 catch (AuthorizationException)
                 {
-                    return AuthorizationResponseTypes.WrongCredentials;
+                    return AuthorizationResponseTypes.WrongAccessToken;
                 }
                 catch (ApiException)
                 {

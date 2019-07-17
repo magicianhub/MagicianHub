@@ -174,4 +174,13 @@
   <data name="VerifySmsText" xml:space="preserve">
     <value>We just sent you a message via SMS with your authentication code. Enter the code in the form below to verify your identity.</value>
   </data>
+  <data name="Incorrect2FACode" xml:space="preserve">
+    <value>Two-factor authentication failed.</value>
+  </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Incorrect username or password.</value>
+  </data>
+  <data name="IncorrectToken" xml:space="preserve">
+    <value>Incorrect user access token.</value>
+  </data>
 </root>

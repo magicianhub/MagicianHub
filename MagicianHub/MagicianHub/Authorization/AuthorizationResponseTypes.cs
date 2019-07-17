@@ -6,6 +6,7 @@
         NeedVerifyCodeByApp,
         NeedVerifyCodeByPhone,
         WrongCredentials,
+        WrongAccessToken,
         UnexpectedResponse
     }
 }

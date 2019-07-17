@@ -1,11 +1,11 @@
-﻿using System;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MagicianHub.Authorization;
 using MagicianHub.Verification;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 
 namespace MagicianHub.ViewModels
 {
@@ -24,6 +24,30 @@ namespace MagicianHub.ViewModels
             if (UseAccessToken && string.IsNullOrWhiteSpace(AccessToken)) return false;
             if (!UseAccessToken && string.IsNullOrWhiteSpace(Password)) return false;
             return true;
+        }
+
+        private void ThrowAuthFailedInAppNotify(bool isVerifyFailed, bool isTokenFailed)
+        {
+            if (InAppAuthNotifyIsOpened) InAppAuthNotifyIsOpened = false;
+
+            if (isVerifyFailed)
+            {
+                InAppAuthNotifyText =
+                    ResourceLoader.GetForCurrentView().GetString("Incorrect2FACode");
+            }
+            else if (isTokenFailed)
+            {
+                InAppAuthNotifyText =
+                    ResourceLoader.GetForCurrentView().GetString("IncorrectToken");
+            }
+            else
+            {
+                InAppAuthNotifyText =
+                    ResourceLoader.GetForCurrentView().GetString("IncorrectPassword");
+            }
+
+            // This technological fasteners allows you to change InAppAuthNotifyIsOpened to true again.
+            InAppAuthNotifyIsOpened = true;
         }
 
         public ICommand AuthorizationCommand { get; }
@@ -61,8 +85,14 @@ namespace MagicianHub.ViewModels
                         Login = string.Empty;
                         Password = string.Empty;
                         AuthorizationNotify.NotifyWrongPassword();
-                        if (InAppNotifyIsOpened) InAppNotifyIsOpened = false;
-                        InAppNotifyIsOpened = true;
+                        ThrowAuthFailedInAppNotify(false, false);
+                        break;
+                    case AuthorizationResponseTypes.WrongAccessToken:
+                        IsInLoginIn = false;
+                        Login = string.Empty;
+                        AccessToken = string.Empty;
+                        AuthorizationNotify.NotifyWrongPassword();
+                        ThrowAuthFailedInAppNotify(false, true);
                         break;
                     case AuthorizationResponseTypes.UnexpectedResponse:
                         break;
@@ -91,6 +121,7 @@ namespace MagicianHub.ViewModels
                     case VerificationResponseTypes.WrongVerifyCode:
                     case VerificationResponseTypes.UnexpectedResponse:
                         IsInLoginIn = false;
+                        ThrowAuthFailedInAppNotify(true, false);
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -204,15 +235,27 @@ namespace MagicianHub.ViewModels
             }
         }
 
-        private bool _inAppNotifyIsOpened;
-        public bool InAppNotifyIsOpened
+        private bool _inAppAuthNotifyIsOpened;
+        public bool InAppAuthNotifyIsOpened
         {
-            get => _inAppNotifyIsOpened;
+            get => _inAppAuthNotifyIsOpened;
             set
             {
-                if (value == _inAppNotifyIsOpened) return;
-                _inAppNotifyIsOpened = value;
-                RaisePropertyChanged(nameof(InAppNotifyIsOpened));
+                if (value == _inAppAuthNotifyIsOpened) return;
+                _inAppAuthNotifyIsOpened = value;
+                RaisePropertyChanged(nameof(InAppAuthNotifyIsOpened));
+            }
+        }
+
+        private string _inAppAuthNotifyText;
+        public string InAppAuthNotifyText
+        {
+            get => _inAppAuthNotifyText;
+            set
+            {
+                if (value == _inAppAuthNotifyText) return;
+                _inAppAuthNotifyText = value;
+                RaisePropertyChanged(nameof(InAppAuthNotifyText));
             }
         }
     }
