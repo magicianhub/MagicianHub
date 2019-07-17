@@ -183,4 +183,7 @@
   <data name="IncorrectToken" xml:space="preserve">
     <value>Incorrect user access token.</value>
   </data>
+  <data name="UnexpectedResponse" xml:space="preserve">
+    <value>Maybe internal error, retry it action please.</value>
+  </data>
 </root>

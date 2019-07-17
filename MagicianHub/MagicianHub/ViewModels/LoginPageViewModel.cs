@@ -26,8 +26,12 @@ namespace MagicianHub.ViewModels
             return true;
         }
 
-        private void ThrowAuthFailedInAppNotify(bool isVerifyFailed, bool isTokenFailed)
+        private void ThrowAuthFailedInAppNotify(
+            bool isVerifyFailed,
+            bool isTokenFailed = false,
+            bool isUnexpectedResponse = false)
         {
+            // This technological fasteners allows you to change InAppAuthNotifyIsOpened to true again.
             if (InAppAuthNotifyIsOpened) InAppAuthNotifyIsOpened = false;
 
             if (isVerifyFailed)
@@ -40,13 +44,17 @@ namespace MagicianHub.ViewModels
                 InAppAuthNotifyText =
                     ResourceLoader.GetForCurrentView().GetString("IncorrectToken");
             }
+            else if (isUnexpectedResponse)
+            {
+                InAppAuthNotifyText =
+                    ResourceLoader.GetForCurrentView().GetString("UnexpectedResponse");
+            }
             else
             {
                 InAppAuthNotifyText =
                     ResourceLoader.GetForCurrentView().GetString("IncorrectPassword");
             }
 
-            // This technological fasteners allows you to change InAppAuthNotifyIsOpened to true again.
             InAppAuthNotifyIsOpened = true;
         }
 
@@ -85,7 +93,7 @@ namespace MagicianHub.ViewModels
                         Login = string.Empty;
                         Password = string.Empty;
                         AuthorizationNotify.NotifyWrongPassword();
-                        ThrowAuthFailedInAppNotify(false, false);
+                        ThrowAuthFailedInAppNotify(false);
                         break;
                     case AuthorizationResponseTypes.WrongAccessToken:
                         IsInLoginIn = false;
@@ -95,6 +103,11 @@ namespace MagicianHub.ViewModels
                         ThrowAuthFailedInAppNotify(false, true);
                         break;
                     case AuthorizationResponseTypes.UnexpectedResponse:
+                        ThrowAuthFailedInAppNotify(
+                            false,
+                            false,
+                            true
+                        );
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -119,9 +132,16 @@ namespace MagicianHub.ViewModels
                         DoAuthorization();
                         break;
                     case VerificationResponseTypes.WrongVerifyCode:
+                        IsInLoginIn = false;
+                        ThrowAuthFailedInAppNotify(true);
+                        break;
                     case VerificationResponseTypes.UnexpectedResponse:
                         IsInLoginIn = false;
-                        ThrowAuthFailedInAppNotify(true, false);
+                        ThrowAuthFailedInAppNotify(
+                            false,
+                            false,
+                            true
+                        );
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());

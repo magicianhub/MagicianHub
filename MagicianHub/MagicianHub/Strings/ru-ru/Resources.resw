@@ -183,4 +183,7 @@
   <data name="IncorrectToken" xml:space="preserve">
     <value>Неверный пользовательский токен доступа</value>
   </data>
+  <data name="UnexpectedResponse" xml:space="preserve">
+    <value>Возможно это ошибка приложения, но попробуйте еще раз выполнить это действие.</value>
+  </data>
 </root>
