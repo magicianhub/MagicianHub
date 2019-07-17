@@ -123,18 +123,6 @@
   <data name="AccessTokenTextBox.PlaceholderText" xml:space="preserve">
     <value>Токен доступа</value>
   </data>
-  <data name="AuthDialog.PrimaryButtonText" xml:space="preserve">
-    <value>Продолжить</value>
-  </data>
-  <data name="AuthDialog.SecondaryButtonText" xml:space="preserve">
-    <value>Отменить</value>
-  </data>
-  <data name="AuthDialog.Title" xml:space="preserve">
-    <value>Двухфакторная аутентификация</value>
-  </data>
-  <data name="AuthDialogTextBlock.Text" xml:space="preserve">
-    <value>Выберите метод аутентификации, который подходит вам лучше всего</value>
-  </data>
   <data name="ForgotPasswordLink.Content" xml:space="preserve">
     <value>Забыли пароль?</value>
   </data>
@@ -164,12 +152,6 @@
   </data>
   <data name="VerifyAppText" xml:space="preserve">
     <value>Откройте двухфакторное приложение аутентификации на устройстве для просмотра кода аутентификации и проверки вашей личности.</value>
-  </data>
-  <data name="ViaAuthApp" xml:space="preserve">
-    <value>через приложение аутентификации</value>
-  </data>
-  <data name="ViaPhone" xml:space="preserve">
-    <value>через номер телефона</value>
   </data>
   <data name="VerifySmsText" xml:space="preserve">
     <value>Мы только что отправили вам сообщение через SMS с вашим кодом аутентификации. Введите код в форму ниже, чтобы подтвердить свою личность.</value>
