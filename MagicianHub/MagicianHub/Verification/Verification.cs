@@ -35,7 +35,7 @@ namespace MagicianHub.Verification
             }
             catch (ApiException)
             {
-                return (VerificationResponseTypes.UnexpectedResponse, null);
+                return (VerificationResponseTypes.WrongVerifyCode, null);
             }
         }
     }

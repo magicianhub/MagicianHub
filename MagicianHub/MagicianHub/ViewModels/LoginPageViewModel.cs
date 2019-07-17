@@ -135,14 +135,6 @@ namespace MagicianHub.ViewModels
                         IsInLoginIn = false;
                         ThrowAuthFailedInAppNotify(true);
                         break;
-                    case VerificationResponseTypes.UnexpectedResponse:
-                        IsInLoginIn = false;
-                        ThrowAuthFailedInAppNotify(
-                            false,
-                            false,
-                            true
-                        );
-                        break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }

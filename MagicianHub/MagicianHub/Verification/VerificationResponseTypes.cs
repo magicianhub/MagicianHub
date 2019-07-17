@@ -3,7 +3,6 @@
     public enum VerificationResponseTypes
     {
         Success,
-        WrongVerifyCode,
-        UnexpectedResponse
+        WrongVerifyCode
     }
 }
