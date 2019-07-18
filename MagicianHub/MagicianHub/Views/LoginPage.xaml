@@ -1,14 +1,12 @@
 ﻿<Page x:Class="MagicianHub.Views.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:base="using:MagicianHub.Authorization"
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:localConverters="using:MagicianHub.Converters"
       xmlns:localExtensions="using:MagicianHub.Extensions"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
       DataContext="{Binding LoginPageInstance, Source={StaticResource Locator}}"
       mc:Ignorable="d">
     <Page.Resources>
@@ -18,9 +16,7 @@
         <localConverters:VerificationTypeToStringConverter x:Key="VerificationTypeToStringConverter" />
     </Page.Resources>
     <Grid>
-        <!--  ReSharper disable once UnusedMember.Local  -->
-        <StackPanel x:Name="JustMomentStackPanel"
-                    HorizontalAlignment="Center"
+        <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Orientation="Horizontal"
                     Visibility="{Binding IsInLoginIn, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -66,9 +62,7 @@
                      PlaceholderText="Verification code"
                      Text="{Binding VerifyCode, Mode=TwoWay}"
                      Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <!--  ReSharper disable once UnusedMember.Local  -->
-            <TextBlock x:Name="TwoFactorTextBlock"
-                       x:Uid="VerifyTextBlock"
+            <TextBlock x:Uid="VerifyTextBlock"
                        Margin="0,0,0,15"
                        Text="{Binding VerificationRequestType, Converter={StaticResource VerificationTypeToStringConverter}}"
                        TextWrapping="WrapWholeWords"
@@ -99,6 +93,7 @@
                         Margin="5,0,0,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
+                        Command="{Binding AuthenticateViaBrowserCommand}"
                         Content="Log in via browser"
                         IsEnabled="{Binding ElementName=VerifyButton, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true}" />
             </Grid>

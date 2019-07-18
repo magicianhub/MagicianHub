@@ -15,6 +15,7 @@ namespace MagicianHub.ViewModels
         {
             AuthorizationCommand = new RelayCommand(DoAuthorization);
             VerificationCommand = new RelayCommand(DoVerification);
+            AuthenticateViaBrowserCommand = new RelayCommand(DoAuthorizationViaBrowser);
             VerificationRequestType = VerificationRequestTypes.Application;
         }
 
@@ -137,6 +138,12 @@ namespace MagicianHub.ViewModels
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        public ICommand AuthenticateViaBrowserCommand { get; }
+        private void DoAuthorizationViaBrowser()
+        {
+
         }
 
         private bool _isWrongPassword;

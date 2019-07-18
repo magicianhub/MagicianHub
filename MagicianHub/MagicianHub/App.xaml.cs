@@ -1,4 +1,5 @@
 ﻿using MagicianHub.Extensions;
+using MagicianHub.Github;
 using MagicianHub.Notifications;
 using MagicianHub.Views;
 using Microsoft.QueryStringDotNET;
@@ -6,11 +7,13 @@ using Octokit;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Globalization;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using MagicianHub.Github;
 
 namespace MagicianHub
 {
@@ -35,11 +38,20 @@ namespace MagicianHub
             OnLaunchedOrActivated(null, e, true);
         }
 
+        private void ExtendAcrylicIntoTitleBar()
+        {
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+        }
+
         private void OnLaunchedOrActivated(
             LaunchActivatedEventArgs launchActivatedEventArgs,
             IActivatedEventArgs activatedEventArgs,
             bool isActivated)
         {
+            ExtendAcrylicIntoTitleBar();
             ApplicationLanguages.PrimaryLanguageOverride = "en-US";
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
