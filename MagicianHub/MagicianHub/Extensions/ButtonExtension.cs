@@ -25,8 +25,7 @@ namespace MagicianHub.Extensions
         public void IsFocusedChanged(DependencyPropertyChangedEventArgs evt)
         {
             var value = (bool)evt.NewValue;
-            if (!value) return;
-            Focus(FocusState.Keyboard);
+            if (value) Focus(FocusState.Keyboard);
         }
     }
 }
