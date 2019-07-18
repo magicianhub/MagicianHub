@@ -1,21 +1,15 @@
 ﻿using MagicianHub.Converters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Windows.UI.Xaml;
+using Xunit;
 
 namespace MagicianHub.Tests.Converters
 {
-    [TestClass]
     public class VisibilityToBoolConverterTests
     {
-        private VisibilityToBoolConverter _visibilityToBoolConverterTests;
+        private readonly VisibilityToBoolConverter _visibilityToBoolConverterTests 
+            = new VisibilityToBoolConverter();
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            _visibilityToBoolConverterTests = new VisibilityToBoolConverter();
-        }
-
-        [TestMethod]
+        [Fact]
         public void FalseFromVisibilityVisibleWithTrueParameter()
         {
             bool actualValue = (bool)_visibilityToBoolConverterTests.Convert(
@@ -24,10 +18,10 @@ namespace MagicianHub.Tests.Converters
                 "true",
                 "null"
             );
-            Assert.AreEqual(false, actualValue);
+            Assert.False(actualValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void FalseFromVisibilityCollapsedWithNullParameter()
         {
             bool actualValue = (bool)_visibilityToBoolConverterTests.Convert(
@@ -36,10 +30,10 @@ namespace MagicianHub.Tests.Converters
                 "",
                 "null"
             );
-            Assert.AreEqual(false, actualValue);
+            Assert.False(actualValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void FalseFromVisibilityCollapsedWithFalseParameter()
         {
             bool actualValue = (bool)_visibilityToBoolConverterTests.Convert(
@@ -48,10 +42,10 @@ namespace MagicianHub.Tests.Converters
                 false,
                 "null"
             );
-            Assert.AreEqual(false, actualValue);
+            Assert.False(actualValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void TrueFromVisibilityCollapsedWithTrueParameter()
         {
             bool actualValue = (bool)_visibilityToBoolConverterTests.Convert(
@@ -60,10 +54,10 @@ namespace MagicianHub.Tests.Converters
                 true,
                 "null"
             );
-            Assert.AreEqual(true, actualValue);
+            Assert.True(actualValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void TrueFromVisibilityVisibleWithNullParameter()
         {
             bool actualValue = (bool)_visibilityToBoolConverterTests.Convert(
@@ -72,10 +66,10 @@ namespace MagicianHub.Tests.Converters
                 "",
                 "null"
             );
-            Assert.AreEqual(true, actualValue);
+            Assert.True(actualValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void TrueFromVisibilityVisibleWithFalseParameter()
         {
             bool actualValue = (bool)_visibilityToBoolConverterTests.Convert(
@@ -84,7 +78,7 @@ namespace MagicianHub.Tests.Converters
                 false,
                 "null"
             );
-            Assert.AreEqual(true, actualValue);
+            Assert.True(actualValue);
         }
     }
 }

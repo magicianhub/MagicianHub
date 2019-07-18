@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Security.ExchangeActiveSyncProvisioning;
+using MagicianHub.Extensions;
 
 namespace MagicianHub.Verification
 {
@@ -19,6 +20,8 @@ namespace MagicianHub.Verification
                 var deviceInfo = new EasClientDeviceInformation();
                 var currentDate = DateTimeOffset.UtcNow.ToString("s");
                 var auth = await GitHubClientBase.Instance.Authorization.Create(
+                    GitHubClientBase.ClientId,
+                    GitHubClientBase.ClientSecret.FromHex(),
                     new NewAuthorization(
                         $"{GitHubClientBase.BaseClientId}{GitHubClientBase.Client2FAAction}({deviceInfo.FriendlyName}:{currentDate})",
                         new List<string>()
