@@ -14,6 +14,7 @@
         <localConverters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
         <localConverters:NegateVisibilityValueConverter x:Key="NegateVisibilityValueConverter" />
         <localConverters:VerificationTypeToStringConverter x:Key="VerificationTypeToStringConverter" />
+        <localConverters:StringToAcceptedLengthConverter x:Key="StringToAcceptedLengthConverter" />
     </Page.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center"
@@ -78,16 +79,19 @@
                         Margin="0,0,5,0"
                         Command="{Binding AuthorizationCommand}"
                         Content="Log in"
+                        Style="{StaticResource ButtonRevealStyle}"
                         Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource NegateVisibilityValueConverter}}" />
-                <Button x:Name="VerifyButton"
-                        x:Uid="VerifyButton"
-                        Grid.Column="0"
-                        Width="100"
-                        Margin="0,0,5,0"
-                        x:Load="False"
-                        Command="{Binding VerificationCommand}"
-                        Content="Verify"
-                        Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <localExtensions:ButtonExtension x:Name="VerifyButton"
+                                                 x:Uid="VerifyButton"
+                                                 Grid.Column="0"
+                                                 Width="100"
+                                                 Margin="0,0,5,0"
+                                                 x:Load="False"
+                                                 Command="{Binding VerificationCommand}"
+                                                 Content="Verify"
+                                                 IsFocused="{Binding ElementName=VerificationCodeTextBox, Path=Text, Converter={StaticResource StringToAcceptedLengthConverter}, ConverterParameter=6}"
+                                                 Style="{StaticResource ButtonRevealStyle}"
+                                                 Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
                 <Button x:Uid="LogInViaBrowser"
                         Grid.Column="1"
                         Margin="5,0,0,0"
@@ -95,7 +99,8 @@
                         VerticalAlignment="Center"
                         Command="{Binding AuthenticateViaBrowserCommand}"
                         Content="Log in via browser"
-                        IsEnabled="{Binding ElementName=VerifyButton, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true}" />
+                        IsEnabled="{Binding ElementName=VerifyButton, Path=Visibility, Converter={StaticResource VisibilityToBoolConverter}, ConverterParameter=true}"
+                        Style="{StaticResource ButtonRevealStyle}" />
             </Grid>
             <CheckBox x:Name="UseAccessTokenCheckBox"
                       x:Uid="AccessTokenInsteadPassword"

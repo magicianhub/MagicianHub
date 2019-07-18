@@ -16,7 +16,10 @@ namespace MagicianHub.Extensions
                 nameof(IsOpened),
                 typeof(bool),
                 typeof(InAppNotificationExtension),
-                new PropertyMetadata(false, (d, e) => ((InAppNotificationExtension)d).IsOpenedChanged(e))
+                new PropertyMetadata(
+                    false,
+                    (d, e) => ((InAppNotificationExtension)d).IsOpenedChanged(e)
+                )
             );
 
         private void IsOpenedChanged(DependencyPropertyChangedEventArgs evt)
