@@ -1,5 +1,7 @@
-﻿using MagicianHub.Github;
+﻿using MagicianHub.Extensions;
+using MagicianHub.Github;
 using Octokit;
+using System;
 using System.Threading.Tasks;
 
 namespace MagicianHub.Authorization
@@ -54,6 +56,27 @@ namespace MagicianHub.Authorization
                     return AuthorizationResponseTypes.UnexpectedResponse;
                 }
             }
+        }
+
+        public static async Task DoAuthorizationViaBrowserAsync()
+        {
+            var request = new OauthLoginRequest(GitHubClientBase.ClientId);
+            GitHubClientBase.Scopes.ForEach(request.Scopes.Add);
+
+            var oauthLoginUrl = GitHubClientBase.Instance.Oauth.GetGitHubLoginUrl(request);
+            await Windows.System.Launcher.LaunchUriAsync(oauthLoginUrl);
+        }
+
+        public static async Task<string> ProcessBrowserCodeResponseAsync(string code)
+        {
+            var tokenRequest = new OauthTokenRequest(
+                GitHubClientBase.ClientId,
+                GitHubClientBase.ClientSecret.FromHex(),
+                code
+            );
+
+            var token = await GitHubClientBase.Instance.Oauth.CreateAccessToken(tokenRequest);
+            return token.AccessToken;
         }
     }
 }

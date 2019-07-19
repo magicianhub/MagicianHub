@@ -14,6 +14,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using MagicianHub.Protocol;
 
 namespace MagicianHub
 {
@@ -100,10 +101,18 @@ namespace MagicianHub
 
             if (isActivated)
             {
-                if (!(activatedEventArgs is
-                    ToastNotificationActivatedEventArgs toastActivationArgs)) return;
-                QueryString args = QueryString.Parse(toastActivationArgs.Argument);
-                NotificationBaseHandler.ProcessNotify(args);
+                if (activatedEventArgs is
+                    ToastNotificationActivatedEventArgs toastActivationArgs)
+                {
+                    QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+                    NotificationBaseHandler.ProcessNotify(args);
+                }
+            }
+
+            if (activatedEventArgs?.Kind == ActivationKind.Protocol)
+            {
+                var eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
+                ProtocolBaseHandler.ProcessQuery(eventArgs);
             }
         }
 

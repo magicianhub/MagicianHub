@@ -11,8 +11,10 @@ namespace MagicianHub.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
+        public static LoginPageViewModel Instance;
         public LoginPageViewModel()
         {
+            Instance = this;
             AuthorizationCommand = new RelayCommand(DoAuthorization);
             VerificationCommand = new RelayCommand(DoVerification);
             AuthenticateViaBrowserCommand = new RelayCommand(DoAuthorizationViaBrowser);
@@ -21,7 +23,7 @@ namespace MagicianHub.ViewModels
 
         private bool ValidateCredentials()
         {
-            if (string.IsNullOrWhiteSpace(Login)) return false;
+            if (!UseAccessToken && string.IsNullOrWhiteSpace(Login)) return false;
             if (UseAccessToken && string.IsNullOrWhiteSpace(AccessToken)) return false;
             if (!UseAccessToken && string.IsNullOrWhiteSpace(Password)) return false;
             return true;
@@ -141,9 +143,16 @@ namespace MagicianHub.ViewModels
         }
 
         public ICommand AuthenticateViaBrowserCommand { get; }
-        private void DoAuthorizationViaBrowser()
+        private async void DoAuthorizationViaBrowser()
         {
+            IsInLoginIn = true;
+            await Authorization.Authorization.DoAuthorizationViaBrowserAsync();
+        }
 
+        public async Task<string> GetTokenFromBrowserUri(string code)
+        {
+            var token = await Authorization.Authorization.ProcessBrowserCodeResponseAsync(code);
+            return token;
         }
 
         private bool _isWrongPassword;

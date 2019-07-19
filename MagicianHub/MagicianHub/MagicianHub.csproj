@@ -124,6 +124,7 @@
     <Compile Include="Authorization\AuthorizationNotifyHandler.cs" />
     <Compile Include="Authorization\AuthorizationNotifyTypes.cs" />
     <Compile Include="Authorization\AuthorizationResponseTypes.cs" />
+    <Compile Include="Authorization\AuthorizationProtocol.cs" />
     <Compile Include="Converters\StringToAcceptedLengthConverter.cs" />
     <Compile Include="Converters\VerificationTypeToStringConverter.cs" />
     <Compile Include="Converters\NegateVisibilityValueConverter.cs" />
@@ -132,10 +133,13 @@
     <Compile Include="Extensions\CoreWindowExtension.cs" />
     <Compile Include="Extensions\InAppNotificationExtension.cs" />
     <Compile Include="Extensions\StringHexCoderExtension.cs" />
+    <Compile Include="Extensions\UriExtension.cs" />
     <Compile Include="Github\GitHubClientBase.cs" />
     <Compile Include="Notifications\NotificationBaseHandler.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocol\ProtocolBaseHandler.cs" />
+    <Compile Include="Protocol\ProtocolTypes.cs" />
     <Compile Include="Verification\Verification.cs" />
     <Compile Include="Verification\VerificationRequestTypes.cs" />
     <Compile Include="Verification\VerificationResponseTypes.cs" />
@@ -271,6 +275,7 @@
   <ItemGroup>
     <PRIResource Include="Strings\ru-ru\Resources.resw" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
