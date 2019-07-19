@@ -1,5 +1,6 @@
 ﻿using MagicianHub.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MagicianHub.Authorization
 {
@@ -12,10 +13,14 @@ namespace MagicianHub.Authorization
                 if (authParameters.ContainsKey("code"))
                 {
                     authParameters.TryGetValue("code", out var code);
-                    var token = await LoginPageViewModel.Instance.GetTokenFromBrowserUri(code);
-                    LoginPageViewModel.Instance.UseAccessToken = true;
-                    LoginPageViewModel.Instance.AccessToken = token;
-                    LoginPageViewModel.Instance.AuthorizationCommand.Execute(null);
+                    await LoginPageViewModel.Instance.GetTokenFromBrowserUri(code)
+                        .ContinueWith(token =>
+                    {
+                        LoginPageViewModel.Instance.UseAccessToken = true;
+                        LoginPageViewModel.Instance.AccessToken = token.Result;
+                        LoginPageViewModel.Instance.AuthorizationCommand.Execute(null);
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                    
                 }
             }
         }
