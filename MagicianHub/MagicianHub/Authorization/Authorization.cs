@@ -14,6 +14,7 @@ namespace MagicianHub.Authorization
             string accessToken,
             bool useAccessToken)
         {
+            await Task.Delay(AuthorizationRequestDelay.CalculateDelay());
             if (useAccessToken)
             {
                 var tokenAuth = new Credentials(accessToken);

@@ -92,6 +92,7 @@ namespace MagicianHub.ViewModels
                         IsInValidation = true;
                         break;
                     case AuthorizationResponseTypes.WrongCredentials:
+                        AuthorizationRequestDelay.RecalculateRequests();
                         IsInLoginIn = false;
                         AuthorizationNotify.NotifyWrongPassword(Login, Password);
                         Login = string.Empty;
@@ -99,6 +100,7 @@ namespace MagicianHub.ViewModels
                         ThrowAuthFailedInAppNotify(false);
                         break;
                     case AuthorizationResponseTypes.WrongAccessToken:
+                        AuthorizationRequestDelay.RecalculateRequests();
                         IsInLoginIn = false;
                         AuthorizationNotify.NotifyWrongPassword(
                             login:Login,
@@ -111,6 +113,7 @@ namespace MagicianHub.ViewModels
                         ThrowAuthFailedInAppNotify(false, true);
                         break;
                     case AuthorizationResponseTypes.UnexpectedResponse:
+                        AuthorizationRequestDelay.RecalculateRequests();
                         ThrowAuthFailedInAppNotify(
                             false,
                             false,

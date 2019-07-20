@@ -123,6 +123,7 @@
     <Compile Include="Authorization\AuthorizationNotifyBuilder.cs" />
     <Compile Include="Authorization\AuthorizationNotifyHandler.cs" />
     <Compile Include="Authorization\AuthorizationNotifyTypes.cs" />
+    <Compile Include="Authorization\AuthorizationRequestDelay.cs" />
     <Compile Include="Authorization\AuthorizationResponseTypes.cs" />
     <Compile Include="Authorization\AuthorizationProtocol.cs" />
     <Compile Include="Converters\StringToAcceptedLengthConverter.cs" />
