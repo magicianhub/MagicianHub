@@ -21,6 +21,13 @@ namespace MagicianHub.Authorization
                         LoginPageViewModel.Instance.AuthorizationCommand.Execute(null);
                     }, TaskScheduler.FromCurrentSynchronizationContext());
                 }
+
+                if (authParameters.ContainsKey("token"))
+                {
+                    authParameters.TryGetValue("token", out var token);
+                    LoginPageViewModel.Instance.UseAccessToken = true;
+                    LoginPageViewModel.Instance.AccessToken = token;
+                }
             }
 
             if (authParameters.Count == 2)
@@ -33,6 +40,16 @@ namespace MagicianHub.Authorization
                     LoginPageViewModel.Instance.UseAccessToken = false;
                     LoginPageViewModel.Instance.Login = login;
                     LoginPageViewModel.Instance.Password = pass;
+                }
+
+                if (authParameters.ContainsKey("login") && 
+                    authParameters.ContainsKey("token"))
+                {
+                    authParameters.TryGetValue("login", out var login);
+                    authParameters.TryGetValue("token", out var token);
+                    LoginPageViewModel.Instance.UseAccessToken = true;
+                    LoginPageViewModel.Instance.AccessToken = token;
+                    LoginPageViewModel.Instance.Login = login;
                 }
             }
         }
