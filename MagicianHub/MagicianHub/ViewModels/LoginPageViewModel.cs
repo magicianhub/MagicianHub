@@ -106,7 +106,7 @@ namespace MagicianHub.ViewModels
                         AuthorizationNotify.NotifyWrongPassword(
                             login:Login,
                             token:AccessToken,
-                            isUseToken:true
+                            isUseToken:UseAccessToken
                         );
                         Login = string.Empty;
                         AccessToken = string.Empty;

@@ -15,7 +15,7 @@ namespace MagicianHub.Authorization
             {
                 var parameters = Uri.UnescapeDataString(args.ToString()).GetPartParameters();
 
-                if (parameters.ContainsKey("login"))
+                if (parameters.ContainsKey("pass"))
                 {
                     parameters.TryGetValue("login", out var login);
                     parameters.TryGetValue("pass", out var pass);
