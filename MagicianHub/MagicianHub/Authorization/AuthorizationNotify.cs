@@ -7,10 +7,20 @@ namespace MagicianHub.Authorization
 {
     public static class AuthorizationNotify
     {
-        public static void NotifyWrongPassword()
+        public static void NotifyWrongPassword(
+            string login = "",
+            string password = "",
+            string token = "",
+            bool isUseToken = false)
         {
             if (Window.Current.CoreWindow.IsActive()) return;
-            ToastContent content = AuthorizationNotifyBuilder.GenerateToastWrongPasswordContent();
+            ToastContent content =
+                AuthorizationNotifyBuilder.GenerateToastWrongPasswordContent(
+                    login, 
+                    password,
+                    token,
+                    isUseToken
+                );
             ToastNotificationManager
                 .CreateToastNotifier()
                 .Show(new ToastNotification(content.GetXml()));

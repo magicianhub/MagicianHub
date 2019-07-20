@@ -4,8 +4,16 @@ namespace MagicianHub.Authorization
 {
     public static class AuthorizationNotifyBuilder
     {
-        public static ToastContent GenerateToastWrongPasswordContent()
+        public static ToastContent GenerateToastWrongPasswordContent(
+            string login = "",
+            string password = "",
+            string token = "",
+            bool isUseToken = false)
         {
+            var arguments = isUseToken 
+                ? $"tryReconnect:auth?token={token}&login={login}" 
+                : $"tryReconnect:auth?login={login}&pass={password}";
+
             return new ToastContent
             {
                 Launch = "action=wrongPassword&eventId=0001",
@@ -37,7 +45,7 @@ namespace MagicianHub.Authorization
                 {
                     Buttons =
                     {
-                        new ToastButton("Try reconnect", "tryReconnect"),
+                        new ToastButton("Try reconnect", arguments),
                         new ToastButtonDismiss("Understand")
                     }
                 }

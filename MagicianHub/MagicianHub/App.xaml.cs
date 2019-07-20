@@ -96,18 +96,16 @@ namespace MagicianHub
                 }
             }
 
+            if (activatedEventArgs is
+                ToastNotificationActivatedEventArgs toastActivationArgs)
+            {
+                QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+                NotificationBaseHandler.ProcessNotify(args);
+                return;
+            }
+
             Window.Current.CoreWindow.InitExtension();
             Window.Current.Activate();
-
-            if (isActivated)
-            {
-                if (activatedEventArgs is
-                    ToastNotificationActivatedEventArgs toastActivationArgs)
-                {
-                    QueryString args = QueryString.Parse(toastActivationArgs.Argument);
-                    NotificationBaseHandler.ProcessNotify(args);
-                }
-            }
 
             if (activatedEventArgs?.Kind == ActivationKind.Protocol)
             {

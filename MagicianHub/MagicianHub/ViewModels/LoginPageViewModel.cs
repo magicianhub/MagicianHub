@@ -93,13 +93,18 @@ namespace MagicianHub.ViewModels
                         break;
                     case AuthorizationResponseTypes.WrongCredentials:
                         IsInLoginIn = false;
+                        AuthorizationNotify.NotifyWrongPassword(Login, Password);
                         Login = string.Empty;
                         Password = string.Empty;
-                        AuthorizationNotify.NotifyWrongPassword();
                         ThrowAuthFailedInAppNotify(false);
                         break;
                     case AuthorizationResponseTypes.WrongAccessToken:
                         IsInLoginIn = false;
+                        AuthorizationNotify.NotifyWrongPassword(
+                            login:Login,
+                            token:AccessToken,
+                            isUseToken:true
+                        );
                         Login = string.Empty;
                         AccessToken = string.Empty;
                         AuthorizationNotify.NotifyWrongPassword();

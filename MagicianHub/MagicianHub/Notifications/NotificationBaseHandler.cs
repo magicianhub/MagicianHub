@@ -13,10 +13,11 @@ namespace MagicianHub.Notifications
                 Window.Current.Activate();
                 return;
             }
-            if (args.Contains("tryReconnect"))
+            if (args.ToString().Contains("tryReconnect"))
             {
                 AuthorizationNotifyHandler.ProcessAuthorizationNotify(
-                    AuthorizationNotifyTypes.TryReconnect
+                    AuthorizationNotifyTypes.TryReconnect,
+                    args
                 );
                 return;
             }

@@ -38,5 +38,30 @@ namespace MagicianHub.Extensions
 
             return parameters;
         }
+
+        /**
+         * E.g we call it method with magicianhub://auth?login=test&pass=test
+         * and it method return just dict with keys: login, pass and values: test, test.
+         */
+        public static Dictionary<string, string> GetPartParameters(this string str)
+        {
+            var parameters = new Dictionary<string, string>();
+            try
+            {
+                if (!str.Contains("?")) return parameters;
+                var uriParameters = str.Split('?')[1].Split('&');
+                foreach (var parameter in uriParameters)
+                {
+                    var keyAndValue = parameter.Split('=');
+                    parameters.Add(keyAndValue[0], keyAndValue[1]);
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return parameters;
+            }
+
+            return parameters;
+        }
     }
 }

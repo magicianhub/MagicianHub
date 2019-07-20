@@ -73,6 +73,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <!--  ReSharper disable once Xaml.StaticResourceNotResolved  -->
                 <Button x:Uid="LogInButton"
                         Grid.Column="0"
                         MinWidth="100"
@@ -81,6 +82,7 @@
                         Content="Log in"
                         Style="{StaticResource ButtonRevealStyle}"
                         Visibility="{Binding ElementName=VerificationCodeTextBox, Path=Visibility, Converter={StaticResource NegateVisibilityValueConverter}}" />
+                <!--  ReSharper disable once Xaml.StaticResourceNotResolved  -->
                 <localExtensions:ButtonExtension x:Name="VerifyButton"
                                                  x:Uid="VerifyButton"
                                                  Grid.Column="0"
@@ -92,6 +94,7 @@
                                                  IsFocused="{Binding ElementName=VerificationCodeTextBox, Path=Text, Converter={StaticResource StringToAcceptedLengthConverter}, ConverterParameter=6}"
                                                  Style="{StaticResource ButtonRevealStyle}"
                                                  Visibility="{Binding IsInValidation, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <!--  ReSharper disable once Xaml.StaticResourceNotResolved  -->
                 <Button x:Uid="LogInViaBrowser"
                         Grid.Column="1"
                         Margin="5,0,0,0"
