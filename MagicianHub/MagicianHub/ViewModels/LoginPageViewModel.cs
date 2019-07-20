@@ -110,7 +110,6 @@ namespace MagicianHub.ViewModels
                         );
                         Login = string.Empty;
                         AccessToken = string.Empty;
-                        AuthorizationNotify.NotifyWrongPassword();
                         ThrowAuthFailedInAppNotify(false, true);
                         break;
                     case AuthorizationResponseTypes.UnexpectedResponse:
