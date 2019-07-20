@@ -4,10 +4,7 @@
     {
         public static int DelayMsModifier;
 
-        public static int CalculateDelay()
-        {
-            return DelayMsModifier;
-        }
+        public static int CalculateDelay() => DelayMsModifier;
 
         public static void RecalculateRequests()
         {

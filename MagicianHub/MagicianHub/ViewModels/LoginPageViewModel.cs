@@ -78,6 +78,7 @@ namespace MagicianHub.ViewModels
                 switch (responseResult)
                 {
                     case AuthorizationResponseTypes.Success:
+                        AuthorizationRequestDelay.DelayMsModifier = 0;
                         IsInLoginIn = false;
                         Debug.WriteLine(responseResult);
                         break;
