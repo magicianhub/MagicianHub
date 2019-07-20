@@ -20,7 +20,19 @@ namespace MagicianHub.Authorization
                         LoginPageViewModel.Instance.AccessToken = token.Result;
                         LoginPageViewModel.Instance.AuthorizationCommand.Execute(null);
                     }, TaskScheduler.FromCurrentSynchronizationContext());
-                    
+                }
+            }
+
+            if (authParameters.Count == 2)
+            {
+                if (authParameters.ContainsKey("login") &&
+                    authParameters.ContainsKey("pass"))
+                {
+                    authParameters.TryGetValue("login", out var login);
+                    authParameters.TryGetValue("pass", out var pass);
+                    LoginPageViewModel.Instance.UseAccessToken = false;
+                    LoginPageViewModel.Instance.Login = login;
+                    LoginPageViewModel.Instance.Password = pass;
                 }
             }
         }
