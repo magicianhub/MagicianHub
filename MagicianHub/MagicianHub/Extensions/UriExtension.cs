@@ -21,11 +21,19 @@ namespace MagicianHub.Extensions
         {
             var parameters = new Dictionary<string, string>();
             var uriString = uri.ToString();
-            var uriParameters = uriString.Split('?')[1].Split('&');
-            foreach (var parameter in uriParameters)
+            try
             {
-                var keyAndValue = parameter.Split('=');
-                parameters.Add(keyAndValue[0], keyAndValue[1]);
+                if (!uriString.Contains("?")) return parameters;
+                var uriParameters = uriString.Split('?')[1].Split('&');
+                foreach (var parameter in uriParameters)
+                {
+                    var keyAndValue = parameter.Split('=');
+                    parameters.Add(keyAndValue[0], keyAndValue[1]);
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return parameters;
             }
 
             return parameters;
