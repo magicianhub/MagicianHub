@@ -168,4 +168,16 @@
   <data name="UnexpectedResponse" xml:space="preserve">
     <value>Возможно это ошибка приложения, но попробуйте еще раз выполнить это действие.</value>
   </data>
+  <data name="AuthorizationNotifyBaseMessage" xml:space="preserve">
+    <value>Авторизация аккаунта на GitHub не удалась.</value>
+  </data>
+  <data name="AuthorizationNotifyTitle" xml:space="preserve">
+    <value>MagicianHub - Авторизация</value>
+  </data>
+  <data name="AuthorizationNotifyTryReconnectMessage" xml:space="preserve">
+    <value>Переподключиться</value>
+  </data>
+  <data name="AuthorizationNotifyUnderstandMessage" xml:space="preserve">
+    <value>Ясно</value>
+  </data>
 </root>

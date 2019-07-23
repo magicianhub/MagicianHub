@@ -1,4 +1,6 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
+﻿using MagicianHub.Notifications;
+using Microsoft.Toolkit.Uwp.Notifications;
+using Windows.ApplicationModel.Resources;
 
 namespace MagicianHub.Authorization
 {
@@ -14,9 +16,23 @@ namespace MagicianHub.Authorization
                 ? $"tryReconnect:auth?token={token}&login={login}" 
                 : $"tryReconnect:auth?login={login}&pass={password}";
 
+            var launchString = isUseToken
+                ? $"action=wrongToken&eventId={NotificationIdBase.WrongTokenId}"
+                : $"action=wrongPassword&eventId={NotificationIdBase.WrongPasswordId}";
+
+            var title = ResourceLoader.GetForCurrentView()
+                .GetString("AuthorizationNotifyTitle");
+
+            var messageBase = ResourceLoader.GetForCurrentView()
+                .GetString("AuthorizationNotifyBaseMessage");
+            
+            var messageDescription = isUseToken
+                ? ResourceLoader.GetForCurrentView().GetString("IncorrectToken")
+                : ResourceLoader.GetForCurrentView().GetString("IncorrectPassword");
+
             return new ToastContent
             {
-                Launch = "action=wrongPassword&eventId=0001",
+                Launch = launchString,
                 Visual = new ToastVisual
                 {
                     BindingGeneric = new ToastBindingGeneric
@@ -25,17 +41,17 @@ namespace MagicianHub.Authorization
                         {
                             new AdaptiveText
                             {
-                                Text = "MagicianHub - Authorization"
+                                Text = title
                             },
 
                             new AdaptiveText
                             {
-                                Text = "GitHub account authorization failed."
+                                Text = messageBase
                             },
 
                             new AdaptiveText
                             {
-                                Text = "Incorrect username or password."
+                                Text = messageDescription
                             }
                         }
                     }
@@ -45,8 +61,15 @@ namespace MagicianHub.Authorization
                 {
                     Buttons =
                     {
-                        new ToastButton("Try reconnect", arguments),
-                        new ToastButtonDismiss("Understand")
+                        new ToastButton(
+                            ResourceLoader.GetForCurrentView()
+                                .GetString("AuthorizationNotifyTryReconnectMessage"),
+                            arguments
+                        ),
+                        new ToastButtonDismiss(
+                            ResourceLoader.GetForCurrentView()
+                                .GetString("AuthorizationNotifyUnderstandMessage")
+                        )
                     }
                 }
             };

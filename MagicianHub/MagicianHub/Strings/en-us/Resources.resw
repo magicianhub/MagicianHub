@@ -168,4 +168,16 @@
   <data name="UnexpectedResponse" xml:space="preserve">
     <value>Maybe internal error, retry it action please.</value>
   </data>
+  <data name="AuthorizationNotifyBaseMessage" xml:space="preserve">
+    <value>GitHub account authorization failed.</value>
+  </data>
+  <data name="AuthorizationNotifyTitle" xml:space="preserve">
+    <value>MagicianHub - Authorization</value>
+  </data>
+  <data name="AuthorizationNotifyTryReconnectMessage" xml:space="preserve">
+    <value>Try reconnect</value>
+  </data>
+  <data name="AuthorizationNotifyUnderstandMessage" xml:space="preserve">
+    <value>Understand</value>
+  </data>
 </root>
