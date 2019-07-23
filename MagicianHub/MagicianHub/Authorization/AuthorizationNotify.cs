@@ -16,7 +16,7 @@ namespace MagicianHub.Authorization
             if (Window.Current.CoreWindow.IsActive()) return;
             ToastContent content =
                 AuthorizationNotifyBuilder.GenerateToastWrongPasswordContent(
-                    login, 
+                    login,
                     password,
                     token,
                     isUseToken

@@ -180,4 +180,10 @@
   <data name="AuthorizationNotifyUnderstandMessage" xml:space="preserve">
     <value>Ясно</value>
   </data>
+  <data name="VerificationNotifyTitle" xml:space="preserve">
+    <value>MagicianHub - Верификация</value>
+  </data>
+  <data name="VerificationNotifyUnderstandMessage" xml:space="preserve">
+    <value>Ясно</value>
+  </data>
 </root>

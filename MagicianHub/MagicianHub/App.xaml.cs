@@ -53,6 +53,7 @@ namespace MagicianHub
             bool isActivated)
         {
             ExtendAcrylicIntoTitleBar();
+            // todo: REMOVE IT! IT ONLY FOR LANGUAGE TEST!
             ApplicationLanguages.PrimaryLanguageOverride = "en-US";
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)

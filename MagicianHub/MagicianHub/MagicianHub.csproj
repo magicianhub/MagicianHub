@@ -143,6 +143,8 @@
     <Compile Include="Protocol\ProtocolBaseHandler.cs" />
     <Compile Include="Protocol\ProtocolTypes.cs" />
     <Compile Include="Verification\Verification.cs" />
+    <Compile Include="Verification\VerificationNotify.cs" />
+    <Compile Include="Verification\VerificationNotifyBuilder.cs" />
     <Compile Include="Verification\VerificationRequestTypes.cs" />
     <Compile Include="Verification\VerificationResponseTypes.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />

@@ -145,6 +145,7 @@ namespace MagicianHub.ViewModels
                     case VerificationResponseTypes.WrongVerifyCode:
                         IsInLoginIn = false;
                         ThrowAuthFailedInAppNotify(true);
+                        VerificationNotify.NotifyWrongVerifyCode();
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
