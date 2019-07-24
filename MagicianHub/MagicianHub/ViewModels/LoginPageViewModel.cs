@@ -138,12 +138,14 @@ namespace MagicianHub.ViewModels
                 switch (response)
                 {
                     case VerificationResponseTypes.Success:
+                        VerificationRequestDelay.DelayMsModifier = 0;
                         UseAccessToken = true;
                         AccessToken = token;
                         DoAuthorization();
                         break;
                     case VerificationResponseTypes.WrongVerifyCode:
                         IsInLoginIn = false;
+                        VerificationRequestDelay.RecalculateRequests();
                         ThrowAuthFailedInAppNotify(true);
                         VerificationNotify.NotifyWrongVerifyCode();
                         break;

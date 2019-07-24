@@ -1,10 +1,10 @@
-﻿using MagicianHub.Github;
+﻿using MagicianHub.Extensions;
+using MagicianHub.Github;
 using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Security.ExchangeActiveSyncProvisioning;
-using MagicianHub.Extensions;
 
 namespace MagicianHub.Verification
 {
@@ -15,6 +15,8 @@ namespace MagicianHub.Verification
             string token
         )> DoVerificationAsync(string verifyCode)
         {
+            await Task.Delay(VerificationRequestDelay.CalculateDelay());
+
             try
             {
                 var deviceInfo = new EasClientDeviceInformation();
