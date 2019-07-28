@@ -33,7 +33,8 @@ namespace MagicianHub.Authorization
             if (authParameters.Count == 2)
             {
                 if (authParameters.ContainsKey("login") &&
-                    authParameters.ContainsKey("pass"))
+                    authParameters.ContainsKey("pass")
+                )
                 {
                     authParameters.TryGetValue("login", out var login);
                     authParameters.TryGetValue("pass", out var pass);
@@ -43,7 +44,8 @@ namespace MagicianHub.Authorization
                 }
 
                 if (authParameters.ContainsKey("login") && 
-                    authParameters.ContainsKey("token"))
+                    authParameters.ContainsKey("token")
+                )
                 {
                     authParameters.TryGetValue("login", out var login);
                     authParameters.TryGetValue("token", out var token);

@@ -1,6 +1,7 @@
 ﻿using MagicianHub.Converters;
 using Windows.UI.Xaml;
 using Xunit;
+using Assert = Xunit.Assert;
 
 namespace MagicianHub.Tests.Converters
 {

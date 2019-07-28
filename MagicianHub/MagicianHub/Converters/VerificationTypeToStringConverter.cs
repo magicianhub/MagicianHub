@@ -11,7 +11,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language)
+            string language
+        )
         {
             return ResourceLoader.GetForCurrentView().GetString(
                 (VerificationRequestTypes)value == VerificationRequestTypes.Application
@@ -24,9 +25,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language)
-        {
+            string language
+        ) =>
             throw new NotImplementedException();
-        }
     }
 }

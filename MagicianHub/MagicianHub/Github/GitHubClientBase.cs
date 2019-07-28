@@ -1,5 +1,7 @@
 ﻿using Octokit;
 using System.Collections.Generic;
+using System.IO;
+using Windows.Storage;
 
 namespace MagicianHub.Github
 {
@@ -16,5 +18,23 @@ namespace MagicianHub.Github
         {
             "repo", "notifications", "user", "delete_repo"
         };
+
+        public static string SettingsPath =
+            Path.Combine(
+                ApplicationData.Current.LocalFolder.Path,
+                "settings.json"
+            );
+        
+        public static string LoggerDirPath =
+            Path.Combine(
+                ApplicationData.Current.LocalFolder.Path,
+                "logs"
+            );
+
+        public static string LatestLogFilePath =
+            Path.Combine(
+                LoggerDirPath,
+                "latest.log"
+            );
     }
 }

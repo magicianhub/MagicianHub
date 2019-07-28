@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dataTypes="using:MagicianHub.DataTypes"
       xmlns:localConverters="using:MagicianHub.Converters"
       xmlns:localExtensions="using:MagicianHub.Extensions"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,6 +16,36 @@
         <localConverters:NegateVisibilityValueConverter x:Key="NegateVisibilityValueConverter" />
         <localConverters:VerificationTypeToStringConverter x:Key="VerificationTypeToStringConverter" />
         <localConverters:StringToAcceptedLengthConverter x:Key="StringToAcceptedLengthConverter" />
+        <DataTemplate x:Key="SavedAccountsListViewTemplate"
+                      x:DataType="dataTypes:SavedAccounts">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <PersonPicture Grid.RowSpan="2"
+                               Grid.Column="0"
+                               Width="32"
+                               Height="32"
+                               DisplayName="{x:Bind Name}" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="12,6,0,0"
+                           x:Phase="1"
+                           Style="{ThemeResource BaseTextBlockStyle}"
+                           Text="{x:Bind Name}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Margin="12,0,0,6"
+                           x:Phase="2"
+                           Style="{ThemeResource BodyTextBlockStyle}"
+                           Text="{x:Bind Nickname}" />
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center"
@@ -119,6 +150,22 @@
                              x:Load="False"
                              Content="Forgot password?"
                              Visibility="{Binding IsWrongPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <ListView Height="Auto"
+                      Margin="0,10,0,0"
+                      BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}"
+                      BorderThickness="2"
+                      ItemTemplate="{StaticResource SavedAccountsListViewTemplate}"
+                      ItemsSource="{Binding SavedAccounts}"
+                      SelectionMode="Single"
+                      ShowsScrollingPlaceholders="True"
+                      Visibility="{Binding SavedAccountsExists, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ListView.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Icon="Delete"
+                                        Text="Delete" />
+                    </MenuFlyout>
+                </ListView.ContextFlyout>
+            </ListView>
         </StackPanel>
         <localExtensions:InAppNotificationExtension MaxWidth="400"
                                                     IsOpened="{Binding InAppAuthNotifyIsOpened}"

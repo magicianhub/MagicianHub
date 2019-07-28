@@ -11,7 +11,8 @@ namespace MagicianHub.Authorization
             string login = "",
             string password = "",
             string token = "",
-            bool isUseToken = false)
+            bool isUseToken = false
+        )
         {
             if (Window.Current.CoreWindow.IsActive()) return;
             ToastContent content =

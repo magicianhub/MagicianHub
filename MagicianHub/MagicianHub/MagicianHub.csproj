@@ -130,18 +130,24 @@
     <Compile Include="Converters\VerificationTypeToStringConverter.cs" />
     <Compile Include="Converters\NegateVisibilityValueConverter.cs" />
     <Compile Include="Converters\VisibilityToBoolConverter.cs" />
+    <Compile Include="DataTypes\SavedAccounts.cs" />
+    <Compile Include="Extensions\ArrayExtension.cs" />
     <Compile Include="Extensions\ButtonExtension.cs" />
     <Compile Include="Extensions\CoreWindowExtension.cs" />
     <Compile Include="Extensions\InAppNotificationExtension.cs" />
     <Compile Include="Extensions\StringHexCoderExtension.cs" />
     <Compile Include="Extensions\UriExtension.cs" />
     <Compile Include="Github\GitHubClientBase.cs" />
+    <Compile Include="Logger\Logger.cs" />
+    <Compile Include="Models\SavedAccounts.cs" />
     <Compile Include="Notifications\NotificationBaseHandler.cs" />
     <Compile Include="Notifications\NotificationIdBase.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\ProtocolBaseHandler.cs" />
     <Compile Include="Protocol\ProtocolTypes.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Verification\Verification.cs" />
     <Compile Include="Verification\VerificationNotify.cs" />
     <Compile Include="Verification\VerificationNotifyBuilder.cs" />
@@ -149,12 +155,16 @@
     <Compile Include="Verification\VerificationRequestTypes.cs" />
     <Compile Include="Verification\VerificationResponseTypes.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\SaveCredsDialogViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\FeedPage.xaml.cs">
       <DependentUpon>FeedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaveCredsDialog.xaml.cs">
+      <DependentUpon>SaveCredsDialog.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SaveCredsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,7 +12,8 @@ namespace MagicianHub.Authorization
             string login,
             string password,
             string accessToken,
-            bool useAccessToken)
+            bool useAccessToken
+        )
         {
             await Task.Delay(AuthorizationRequestDelay.CalculateDelay());
             if (useAccessToken)

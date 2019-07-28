@@ -10,7 +10,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language)
+            string language
+        )
         {
             var visibility = (Visibility) value;
             return visibility == Visibility.Visible 
@@ -22,7 +23,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language)
+            string language
+        )
         {
             var visibility = (Visibility)value;
             return visibility == Visibility.Collapsed

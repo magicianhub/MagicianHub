@@ -1,10 +1,13 @@
 ﻿using MagicianHub.Extensions;
 using MagicianHub.Github;
 using MagicianHub.Notifications;
+using MagicianHub.Protocol;
+using MagicianHub.Settings;
 using MagicianHub.Views;
 using Microsoft.QueryStringDotNET;
 using Octokit;
 using System;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -14,7 +17,6 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using MagicianHub.Protocol;
 
 namespace MagicianHub
 {
@@ -27,6 +29,9 @@ namespace MagicianHub
             GitHubClientBase.Instance = new GitHubClient(
                 new ProductHeaderValue("MagicianHub", "0.0.1")
             );
+            SettingsManager.LoadSettings();
+            Logger.Logger.Init();
+            Logger.Logger.Log.Info("Logger initialized");
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
@@ -45,6 +50,7 @@ namespace MagicianHub
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            Logger.Logger.Log.Info("Extending view into title-bar done");
         }
 
         private void OnLaunchedOrActivated(
@@ -55,13 +61,16 @@ namespace MagicianHub
             ExtendAcrylicIntoTitleBar();
             // todo: REMOVE IT! IT ONLY FOR LANGUAGE TEST!
             ApplicationLanguages.PrimaryLanguageOverride = "en-US";
+            Logger.Logger.Log.Info($"Starting with {ApplicationLanguages.PrimaryLanguageOverride} language");
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+            if (Debugger.IsAttached)
             {
+                Logger.Logger.Log.Debug($"Debugger attached");
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
+            Logger.Logger.Log.Info("Creating base application frame ...");
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
@@ -70,7 +79,8 @@ namespace MagicianHub
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (!isActivated && launchActivatedEventArgs.PreviousExecutionState ==
-                    ApplicationExecutionState.Terminated)
+                    ApplicationExecutionState.Terminated
+                )
                 {
                     // TODO: Load state from previously suspended application
                 }
@@ -97,20 +107,30 @@ namespace MagicianHub
                 }
             }
 
+            Logger.Logger.Log.Debug("Initializing core window extension ...");
+            Window.Current.CoreWindow.InitExtension();
+            Logger.Logger.Log.Debug("Initializing core window extension done");
+
             if (activatedEventArgs is
-                ToastNotificationActivatedEventArgs toastActivationArgs)
+                ToastNotificationActivatedEventArgs toastActivationArgs
+            )
             {
                 QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+                Logger.Logger.Log.Debug($"Application launched \\ activated via notify ({args})");
+                Logger.Logger.Log.Debug("Processing notify query ...");
                 NotificationBaseHandler.ProcessNotify(args);
+                Logger.Logger.Log.Debug("Processing notify query done");
                 return;
             }
 
-            Window.Current.CoreWindow.InitExtension();
             Window.Current.Activate();
+            Logger.Logger.Log.Info("Creating base application frame done");
 
             if (activatedEventArgs?.Kind == ActivationKind.Protocol)
             {
                 var eventArgs = activatedEventArgs as ProtocolActivatedEventArgs;
+                Logger.Logger.Log.Debug($"Application launched \\ activated via protocol ({eventArgs?.Uri})");
+                Logger.Logger.Log.Debug("Processing protocol query ...");
                 ProtocolBaseHandler.ProcessQuery(eventArgs);
             }
         }
@@ -122,8 +142,10 @@ namespace MagicianHub
 
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            Logger.Logger.Log.Debug("Shutting down application ...");
             var deferral = e.SuspendingOperation.GetDeferral();
-            // TODO: Save application state and stop any background activity
+            SettingsManager.SaveSettings();
+            Logger.Logger.Log.Debug("// Thanks for using, goodbye");
             deferral.Complete();
         }
     }

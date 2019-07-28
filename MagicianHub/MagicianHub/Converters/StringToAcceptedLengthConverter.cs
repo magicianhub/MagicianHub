@@ -9,7 +9,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language)
+            string language
+        )
         {
             var text = value as string;
             var acceptedLength = int.Parse(parameter as string);
@@ -20,7 +21,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language) =>
+            string language
+        ) =>
             throw new NotImplementedException();
     }
 }

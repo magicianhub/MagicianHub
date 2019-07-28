@@ -9,7 +9,8 @@ namespace MagicianHub.Authorization
     {
         public static void ProcessAuthorizationNotify(
             AuthorizationNotifyTypes notifyType,
-            QueryString args)
+            QueryString args
+        )
         {
             if (notifyType == AuthorizationNotifyTypes.TryReconnect)
             {

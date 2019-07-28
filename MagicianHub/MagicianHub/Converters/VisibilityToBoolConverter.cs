@@ -10,7 +10,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language)
+            string language
+        )
         {
             if (!(value is Visibility visibility)) return false;
             return visibility == Visibility.Visible
@@ -22,7 +23,8 @@ namespace MagicianHub.Converters
             object value,
             Type targetType,
             object parameter,
-            string language)
+            string language
+        )
         {
             return value is bool bl && bl
                 ? Visibility.Visible

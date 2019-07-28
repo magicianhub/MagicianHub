@@ -10,7 +10,8 @@ namespace MagicianHub.Authorization
             string login = "",
             string password = "",
             string token = "",
-            bool isUseToken = false)
+            bool isUseToken = false
+        )
         {
             var arguments = isUseToken 
                 ? $"tryReconnect:auth?token={token}&login={login}" 

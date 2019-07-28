@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MagicianHub.Authorization;
+using MagicianHub.DataTypes;
 using MagicianHub.Verification;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,6 +21,22 @@ namespace MagicianHub.ViewModels
             VerificationCommand = new RelayCommand(DoVerification);
             AuthenticateViaBrowserCommand = new RelayCommand(DoAuthorizationViaBrowser);
             VerificationRequestType = VerificationRequestTypes.Application;
+            SavedAccountsExists = true;
+
+            SavedAccounts = new ObservableCollection<SavedAccounts>
+            {
+                new SavedAccounts
+                {
+                    Name = "Pavel Erokhin",
+                    Nickname = "MairwunNx"
+                },
+
+                new SavedAccounts
+                {
+                    Name = "Yarik Kotov",
+                    Nickname = "DjaZZGame"
+                }
+            };
         }
 
         private bool ValidateCredentials()
@@ -32,7 +50,8 @@ namespace MagicianHub.ViewModels
         private void ThrowAuthFailedInAppNotify(
             bool isVerifyFailed,
             bool isTokenFailed = false,
-            bool isUnexpectedResponse = false)
+            bool isUnexpectedResponse = false
+        )
         {
             // This technological fasteners allows you to change InAppAuthNotifyIsOpened to true again.
             if (InAppAuthNotifyIsOpened) InAppAuthNotifyIsOpened = false;
@@ -295,6 +314,30 @@ namespace MagicianHub.ViewModels
                 if (value == _inAppAuthNotifyText) return;
                 _inAppAuthNotifyText = value;
                 RaisePropertyChanged(nameof(InAppAuthNotifyText));
+            }
+        }
+
+        private ObservableCollection<SavedAccounts> _savedAccounts;
+        public ObservableCollection<SavedAccounts> SavedAccounts
+        {
+            get => _savedAccounts;
+            set
+            {
+                if (value == _savedAccounts) return;
+                _savedAccounts = value;
+                RaisePropertyChanged(nameof(SavedAccounts));
+            }
+        }
+
+        private bool _savedAccountsExists;
+        public bool SavedAccountsExists
+        {
+            get => _savedAccountsExists;
+            set
+            {
+                if (value == _savedAccountsExists) return;
+                _savedAccountsExists = value;
+                RaisePropertyChanged(nameof(SavedAccountsExists));
             }
         }
     }

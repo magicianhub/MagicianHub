@@ -13,7 +13,8 @@ namespace MagicianHub.Extensions
 
         private static void CoreWindowOnActivated(
             CoreWindow sender,
-            WindowActivatedEventArgs args)
+            WindowActivatedEventArgs args
+        )
         {
             _isActive = args.WindowActivationState !=
                         CoreWindowActivationState.Deactivated;

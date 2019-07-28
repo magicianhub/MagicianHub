@@ -1,0 +1,21 @@
+﻿<ContentDialog x:Class="MagicianHub.Views.SaveCredsDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               Title="Save Password"
+               DataContext="{Binding SaveCredsDialogInstance, Source={StaticResource Locator}}"
+               DefaultButton="Primary"
+               PrimaryButtonText="Save"
+               SecondaryButtonText="No, thanks"
+               mc:Ignorable="d">
+    <StackPanel MaxWidth="350"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch">
+        <TextBlock Margin="0,5,0,0"
+                   Text="Do you want MagicianHub to save your password or token for this device?"
+                   TextWrapping="WrapWholeWords" />
+        <CheckBox Margin="0,5,0,0"
+                  Content="Never ask me for this logged account" />
+    </StackPanel>
+</ContentDialog>
