@@ -151,6 +151,7 @@
                              Content="Forgot password?"
                              Visibility="{Binding IsWrongPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
             <ListView Height="Auto"
+                      MaxHeight="154"
                       Margin="0,10,0,0"
                       BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}"
                       BorderThickness="2"

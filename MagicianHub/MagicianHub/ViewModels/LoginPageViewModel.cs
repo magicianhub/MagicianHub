@@ -22,7 +22,6 @@ namespace MagicianHub.ViewModels
             AuthenticateViaBrowserCommand = new RelayCommand(DoAuthorizationViaBrowser);
             VerificationRequestType = VerificationRequestTypes.Application;
             SavedAccounts = Models.SavedAccounts.GetSavedAccounts();
-            SavedAccountsExists = SavedAccounts.Count != 0;
         }
 
         private bool ValidateCredentials()
