@@ -21,22 +21,8 @@ namespace MagicianHub.ViewModels
             VerificationCommand = new RelayCommand(DoVerification);
             AuthenticateViaBrowserCommand = new RelayCommand(DoAuthorizationViaBrowser);
             VerificationRequestType = VerificationRequestTypes.Application;
-            SavedAccountsExists = true;
-
-            SavedAccounts = new ObservableCollection<SavedAccounts>
-            {
-                new SavedAccounts
-                {
-                    Name = "Pavel Erokhin",
-                    Nickname = "MairwunNx"
-                },
-
-                new SavedAccounts
-                {
-                    Name = "Yarik Kotov",
-                    Nickname = "DjaZZGame"
-                }
-            };
+            SavedAccounts = Models.SavedAccounts.GetSavedAccounts();
+            SavedAccountsExists = SavedAccounts.Count != 0;
         }
 
         private bool ValidateCredentials()
@@ -326,6 +312,7 @@ namespace MagicianHub.ViewModels
                 if (value == _savedAccounts) return;
                 _savedAccounts = value;
                 RaisePropertyChanged(nameof(SavedAccounts));
+                SavedAccountsExists = SavedAccounts.Count != 0;
             }
         }
 
