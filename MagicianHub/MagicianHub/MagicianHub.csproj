@@ -126,6 +126,7 @@
     <Compile Include="Authorization\AuthorizationRequestDelay.cs" />
     <Compile Include="Authorization\AuthorizationResponseTypes.cs" />
     <Compile Include="Authorization\AuthorizationProtocol.cs" />
+    <Compile Include="Converters\SelectedIndexToVisibilityConverter.cs" />
     <Compile Include="Converters\StringToAcceptedLengthConverter.cs" />
     <Compile Include="Converters\VerificationTypeToStringConverter.cs" />
     <Compile Include="Converters\NegateVisibilityValueConverter.cs" />

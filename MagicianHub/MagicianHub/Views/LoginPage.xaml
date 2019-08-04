@@ -13,6 +13,7 @@
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <localConverters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
+        <localConverters:SelectedIndexToVisibilityConverter x:Key="SelectedIndexToVisibilityConverter" />
         <localConverters:NegateVisibilityValueConverter x:Key="NegateVisibilityValueConverter" />
         <localConverters:VerificationTypeToStringConverter x:Key="VerificationTypeToStringConverter" />
         <localConverters:StringToAcceptedLengthConverter x:Key="StringToAcceptedLengthConverter" />
@@ -157,16 +158,30 @@
                       BorderThickness="2"
                       ItemTemplate="{StaticResource SavedAccountsListViewTemplate}"
                       ItemsSource="{Binding SavedAccounts}"
+                      SelectedIndex="{Binding SelectedSavedAccountIndex, Mode=TwoWay}"
                       SelectionMode="Single"
                       ShowsScrollingPlaceholders="True"
-                      Visibility="{Binding SavedAccountsExists, Converter={StaticResource BoolToVisibilityConverter}}">
-                <ListView.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Icon="Delete"
-                                        Text="Delete" />
-                    </MenuFlyout>
-                </ListView.ContextFlyout>
-            </ListView>
+                      Visibility="{Binding SavedAccountsExists, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <Grid Visibility="{Binding SelectedSavedAccountIndex, Converter={StaticResource SelectedIndexToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!--  ReSharper disable once Xaml.StaticResourceNotResolved  -->
+                <Button x:Uid="RemoveSelectedAccount"
+                        Grid.Row="0"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding RemoveSavedAccountCommand}"
+                        Content="Remove selected account"
+                        Style="{StaticResource ButtonRevealStyle}" />
+                <!--  ReSharper disable once Xaml.StaticResourceNotResolved  -->
+                <Button Grid.Row="1"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        Content="Log in via MairwunNx"
+                        Style="{StaticResource ButtonRevealStyle}" />
+            </Grid>
         </StackPanel>
         <localExtensions:InAppNotificationExtension MaxWidth="400"
                                                     IsOpened="{Binding InAppAuthNotifyIsOpened}"

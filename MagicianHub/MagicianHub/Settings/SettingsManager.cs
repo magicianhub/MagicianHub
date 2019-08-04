@@ -1,14 +1,14 @@
 ﻿using MagicianHub.Github;
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.IO;
+using static MagicianHub.Logger.Logger;
 
 namespace MagicianHub.Settings
 {
     public static class SettingsManager
     {
         private static Settings.Rootobject _settings;
-        
+
         public static async void LoadSettings()
         {
             try
@@ -18,12 +18,12 @@ namespace MagicianHub.Settings
             }
             catch (JsonReaderException)
             {
-                Debug.WriteLine("Using default settings because json file not correct");
+                Log.Error("Using default settings because json file not correct");
                 _settings = new Settings.Rootobject();
             }
             catch (FileNotFoundException)
             {
-                Debug.WriteLine("Using default settings because json file not exists");
+                Log.Warn("Using default settings because json file not exists");
                 _settings = new Settings.Rootobject();
             }
         }

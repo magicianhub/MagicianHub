@@ -186,4 +186,7 @@
   <data name="VerificationNotifyUnderstandMessage" xml:space="preserve">
     <value>Understand</value>
   </data>
+  <data name="RemoveSelectedAccount" xml:space="preserve">
+    <value>Remove selected account</value>
+  </data>
 </root>

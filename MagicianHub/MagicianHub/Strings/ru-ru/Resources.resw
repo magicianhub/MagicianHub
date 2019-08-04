@@ -186,4 +186,7 @@
   <data name="VerificationNotifyUnderstandMessage" xml:space="preserve">
     <value>Ясно</value>
   </data>
+  <data name="RemoveSelectedAccount" xml:space="preserve">
+    <value>Удалить выбранный аккаунт</value>
+  </data>
 </root>

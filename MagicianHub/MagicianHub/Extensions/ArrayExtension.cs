@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace MagicianHub.Extensions
 {
@@ -24,6 +25,14 @@ namespace MagicianHub.Extensions
             }
 
             return stringBuilder.ToString();
+        }
+
+        public static T[] RemoveByIndex<T>(this T[] array, int index)
+        {
+            var list = array.ToList();
+            list.RemoveAt(index);
+            var newArray = list.ToArray();
+            return newArray;
         }
     }
 }

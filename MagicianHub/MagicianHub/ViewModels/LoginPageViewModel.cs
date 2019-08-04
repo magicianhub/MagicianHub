@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using MagicianHub.Authorization;
 using MagicianHub.DataTypes;
+using MagicianHub.Extensions;
 using MagicianHub.Verification;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -20,8 +21,12 @@ namespace MagicianHub.ViewModels
             AuthorizationCommand = new RelayCommand(DoAuthorization);
             VerificationCommand = new RelayCommand(DoVerification);
             AuthenticateViaBrowserCommand = new RelayCommand(DoAuthorizationViaBrowser);
+            RemoveSavedAccountCommand = new RelayCommand(RemoveSavedAccount);
+            LoginViaSavedAccountCommand = new RelayCommand(LoginViaSavedAccount);
             VerificationRequestType = VerificationRequestTypes.Application;
             SavedAccounts = Models.SavedAccounts.GetSavedAccounts();
+            SavedAccountsExists = SavedAccounts.Count != 0;
+            SelectedSavedAccountIndex = -1;
         }
 
         private bool ValidateCredentials()
@@ -38,7 +43,8 @@ namespace MagicianHub.ViewModels
             bool isUnexpectedResponse = false
         )
         {
-            // This technological fasteners allows you to change InAppAuthNotifyIsOpened to true again.
+            // This technological fasteners allows you to change
+            // InAppAuthNotifyIsOpened to true again.
             if (InAppAuthNotifyIsOpened) InAppAuthNotifyIsOpened = false;
 
             if (isVerifyFailed)
@@ -63,6 +69,22 @@ namespace MagicianHub.ViewModels
             }
 
             InAppAuthNotifyIsOpened = true;
+        }
+
+        public ICommand RemoveSavedAccountCommand { get; set; }
+        private void RemoveSavedAccount()
+        {
+            Settings.SettingsManager.GetSettings().Auth.SavedAccounts =
+                Settings.SettingsManager.GetSettings().Auth.SavedAccounts
+                    .RemoveByIndex(SelectedSavedAccountIndex);
+            SavedAccounts.RemoveAt(SelectedSavedAccountIndex);
+            SavedAccountsExists = SavedAccounts.Count != 0;
+        }
+
+        public ICommand LoginViaSavedAccountCommand { get; set; }
+        private void LoginViaSavedAccount()
+        {
+
         }
 
         public ICommand AuthorizationCommand { get; }
@@ -311,7 +333,6 @@ namespace MagicianHub.ViewModels
                 if (value == _savedAccounts) return;
                 _savedAccounts = value;
                 RaisePropertyChanged(nameof(SavedAccounts));
-                SavedAccountsExists = SavedAccounts.Count != 0;
             }
         }
 
@@ -324,6 +345,42 @@ namespace MagicianHub.ViewModels
                 if (value == _savedAccountsExists) return;
                 _savedAccountsExists = value;
                 RaisePropertyChanged(nameof(SavedAccountsExists));
+            }
+        }
+
+        private int _selectedSavedAccountIndex;
+        public int SelectedSavedAccountIndex
+        {
+            get => _selectedSavedAccountIndex;
+            set
+            {
+                if (value == _selectedSavedAccountIndex) return;
+                _selectedSavedAccountIndex = value;
+                RaisePropertyChanged(nameof(SelectedSavedAccountIndex));
+            }
+        }
+
+        private string _selectedSavedAccountText;
+        public string SelectedSavedAccountText
+        {
+            get => _selectedSavedAccountText;
+            set
+            {
+                if (value == _selectedSavedAccountText) return;
+                _selectedSavedAccountText = value;
+                RaisePropertyChanged(nameof(SelectedSavedAccountText));
+            }
+        }
+
+        private string _loginViaAccountText;
+        public string LoginViaAccountText
+        {
+            get => _loginViaAccountText;
+            set
+            {
+                if (value == _loginViaAccountText) return;
+                _loginViaAccountText = value;
+                RaisePropertyChanged(nameof(LoginViaAccountText));
             }
         }
     }
