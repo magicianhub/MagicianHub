@@ -3,6 +3,8 @@ using GalaSoft.MvvmLight.Command;
 using MagicianHub.Authorization;
 using MagicianHub.DataTypes;
 using MagicianHub.Extensions;
+using MagicianHub.Secure;
+using MagicianHub.Settings;
 using MagicianHub.Verification;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -74,8 +76,13 @@ namespace MagicianHub.ViewModels
         public ICommand RemoveSavedAccountCommand { get; set; }
         private void RemoveSavedAccount()
         {
-            Settings.SettingsManager.GetSettings().Auth.SavedAccounts =
-                Settings.SettingsManager.GetSettings().Auth.SavedAccounts
+            var selectedAccountNickName = SettingsManager.GetSettings()
+                .Auth.SavedAccounts[SelectedSavedAccountIndex].Nickname;
+
+            Storage.RemoveSecuredCreds(selectedAccountNickName);
+
+            SettingsManager.GetSettings().Auth.SavedAccounts =
+                SettingsManager.GetSettings().Auth.SavedAccounts
                     .RemoveByIndex(SelectedSavedAccountIndex);
             SavedAccounts.RemoveAt(SelectedSavedAccountIndex);
             SavedAccountsExists = SavedAccounts.Count != 0;
@@ -84,7 +91,21 @@ namespace MagicianHub.ViewModels
         public ICommand LoginViaSavedAccountCommand { get; set; }
         private void LoginViaSavedAccount()
         {
+            var selectedAccountNickName = SettingsManager.GetSettings()
+                .Auth.SavedAccounts[SelectedSavedAccountIndex].Nickname;
+            var creds = Storage.GetSecuredCreds(selectedAccountNickName);
 
+            Login = selectedAccountNickName;
+            UseAccessToken = Storage.IsToken(creds.Password);
+            if (UseAccessToken)
+            {
+                AccessToken = Storage.PasswordFromRawPassword(creds.Password);
+            }
+            else
+            {
+                Password = Storage.PasswordFromRawPassword(creds.Password);
+            }
+            AuthorizationCommand.Execute(null);
         }
 
         public ICommand AuthorizationCommand { get; }
@@ -105,6 +126,7 @@ namespace MagicianHub.ViewModels
                 {
                     case AuthorizationResponseTypes.Success:
                         AuthorizationRequestDelay.DelayMsModifier = 0;
+                        Storage.AddSecuredCreds(Login, Password);
                         IsInLoginIn = false;
                         Debug.WriteLine(responseResult);
                         break;
@@ -130,9 +152,9 @@ namespace MagicianHub.ViewModels
                         AuthorizationRequestDelay.RecalculateRequests();
                         IsInLoginIn = false;
                         AuthorizationNotify.NotifyWrongPassword(
-                            login:Login,
-                            token:AccessToken,
-                            isUseToken:UseAccessToken
+                            login: Login,
+                            token: AccessToken,
+                            isUseToken: UseAccessToken
                         );
                         Login = string.Empty;
                         AccessToken = string.Empty;
@@ -167,6 +189,7 @@ namespace MagicianHub.ViewModels
                         VerificationRequestDelay.DelayMsModifier = 0;
                         UseAccessToken = true;
                         AccessToken = token;
+                        Storage.AddSecuredCreds(Login, $"{AccessToken}&token=true");
                         DoAuthorization();
                         break;
                     case VerificationResponseTypes.WrongVerifyCode:
@@ -357,18 +380,6 @@ namespace MagicianHub.ViewModels
                 if (value == _selectedSavedAccountIndex) return;
                 _selectedSavedAccountIndex = value;
                 RaisePropertyChanged(nameof(SelectedSavedAccountIndex));
-            }
-        }
-
-        private string _selectedSavedAccountText;
-        public string SelectedSavedAccountText
-        {
-            get => _selectedSavedAccountText;
-            set
-            {
-                if (value == _selectedSavedAccountText) return;
-                _selectedSavedAccountText = value;
-                RaisePropertyChanged(nameof(SelectedSavedAccountText));
             }
         }
 

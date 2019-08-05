@@ -2,7 +2,10 @@
 using MagicianHub.Github;
 using Octokit;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.System;
+using static MagicianHub.Logger.Logger;
 
 namespace MagicianHub.Authorization
 {
@@ -66,7 +69,11 @@ namespace MagicianHub.Authorization
             GitHubClientBase.Scopes.ForEach(request.Scopes.Add);
 
             var oauthLoginUrl = GitHubClientBase.Instance.Oauth.GetGitHubLoginUrl(request);
-            await Windows.System.Launcher.LaunchUriAsync(oauthLoginUrl);
+            var result = await Launcher.LaunchUriAsync(oauthLoginUrl);
+            if (!result)
+            {
+                Log.Error($"An error occurred while opening oauth uri ({oauthLoginUrl})");
+            }
         }
 
         public static async Task<string> ProcessBrowserCodeResponseAsync(string code)
