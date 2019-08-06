@@ -7,7 +7,6 @@ using MagicianHub.Secure;
 using MagicianHub.Settings;
 using MagicianHub.Verification;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
@@ -126,8 +125,8 @@ namespace MagicianHub.ViewModels
                 {
                     case AuthorizationResponseTypes.Success:
                         AuthorizationRequestDelay.DelayMsModifier = 0;
-                        Storage.AddSecuredCreds(Login, UseAccessToken 
-                            ? $"{AccessToken}&token=true" 
+                        Storage.AddSecuredCreds(Login, UseAccessToken
+                            ? $"{AccessToken}&token=true"
                             : Password
                         );
                         IsInLoginIn = false;
