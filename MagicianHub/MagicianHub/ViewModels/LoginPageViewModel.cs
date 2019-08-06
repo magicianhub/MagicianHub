@@ -126,7 +126,10 @@ namespace MagicianHub.ViewModels
                 {
                     case AuthorizationResponseTypes.Success:
                         AuthorizationRequestDelay.DelayMsModifier = 0;
-                        Storage.AddSecuredCreds(Login, Password);
+                        Storage.AddSecuredCreds(Login, UseAccessToken 
+                            ? $"{AccessToken}&token=true" 
+                            : Password
+                        );
                         IsInLoginIn = false;
                         Debug.WriteLine(responseResult);
                         break;
