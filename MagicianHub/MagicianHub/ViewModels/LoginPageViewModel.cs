@@ -131,7 +131,6 @@ namespace MagicianHub.ViewModels
                             : Password
                         );
                         IsInLoginIn = false;
-                        Debug.WriteLine(responseResult);
                         break;
                     case AuthorizationResponseTypes.NeedVerifyCodeByApp:
                         VerificationRequestType = VerificationRequestTypes.Application;
@@ -192,7 +191,6 @@ namespace MagicianHub.ViewModels
                         VerificationRequestDelay.DelayMsModifier = 0;
                         UseAccessToken = true;
                         AccessToken = token;
-                        Storage.AddSecuredCreds(Login, $"{AccessToken}&token=true");
                         DoAuthorization();
                         break;
                     case VerificationResponseTypes.WrongVerifyCode:
