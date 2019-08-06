@@ -7,7 +7,7 @@
 
 > ##### Authorization
 
-| Command | Description |
+| Task Status | Task Description |
 | :--- | --- |
 | ✅ | `Basic authorization via login and password` |
 | ✅ | `Token authorization via login and token` |
