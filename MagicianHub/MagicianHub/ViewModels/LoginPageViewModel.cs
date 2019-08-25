@@ -134,6 +134,8 @@ namespace MagicianHub.ViewModels
                     case AuthorizationResponseTypes.NeedVerifyCodeByApp:
                         VerificationRequestType = VerificationRequestTypes.Application;
                         IsInLoginIn = false;
+                        SavedAccountsExists = false;
+                        SelectedSavedAccountIndex = -1;
                         IsInValidation = true;
                         break;
                     case AuthorizationResponseTypes.NeedVerifyCodeByPhone:
