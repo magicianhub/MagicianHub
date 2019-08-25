@@ -25,8 +25,11 @@ namespace MagicianHub.ViewModels
             RemoveSavedAccountCommand = new RelayCommand(RemoveSavedAccount);
             LoginViaSavedAccountCommand = new RelayCommand(LoginViaSavedAccount);
             VerificationRequestType = VerificationRequestTypes.Application;
-            SavedAccounts = Models.SavedAccounts.GetSavedAccounts();
-            SavedAccountsExists = SavedAccounts.Count != 0;
+            if (SettingsManager.GetSettings().Auth.LoadSavedAccounts)
+            {
+                SavedAccounts = Models.SavedAccounts.GetSavedAccounts();
+                SavedAccountsExists = SavedAccounts.Count != 0;
+            }
             SelectedSavedAccountIndex = -1;
         }
 
