@@ -43,7 +43,7 @@ namespace MagicianHub.ViewModels
             int targetAccount = SettingsManager.GetSettings().Auth.AutoLogInAccountByIndex;
             if (!SavedAccountsExists) return;
             if (targetAccount == -1) return;
-            if (SavedAccounts[targetAccount] == null) return;
+            if (targetAccount > SavedAccounts.Count - 1) return;
             SelectedSavedAccountIndex = targetAccount;
             LoginViaSavedAccountCommand.Execute(null);
         }
@@ -162,6 +162,8 @@ namespace MagicianHub.ViewModels
                         );
                         IsWrongPassword = false;
                         IsInLoginIn = false;
+                        SettingsManager.GetSettings().Auth.AutoLogInAccountByIndex 
+                            = SelectedSavedAccountIndex;
                         break;
                     case AuthorizationResponseTypes.NeedVerifyCodeByApp:
                         VerificationRequestType = VerificationRequestTypes.Application;
@@ -174,6 +176,8 @@ namespace MagicianHub.ViewModels
                     case AuthorizationResponseTypes.NeedVerifyCodeByPhone:
                         VerificationRequestType = VerificationRequestTypes.Phone;
                         IsInLoginIn = false;
+                        SavedAccountsExists = false;
+                        SelectedSavedAccountIndex = -1;
                         IsInValidation = true;
                         IsWrongPassword = false;
                         break;
