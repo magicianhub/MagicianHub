@@ -12,7 +12,7 @@ namespace MagicianHub.Settings
 
         public class Auth
         {
-            public int AutoLogInAccountByIndex { get; set; } = -1;
+            public string AutoLogInAccountByNickname { get; set; } = string.Empty;
             public bool LoadSavedAccounts { get; set; } = true;
             public string[] NeverAskSave { get; set; } = Array.Empty<string>();
             public Savedaccount[] SavedAccounts { get; set; } = Array.Empty<Savedaccount>();

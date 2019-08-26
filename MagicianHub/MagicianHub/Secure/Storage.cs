@@ -43,7 +43,11 @@ namespace MagicianHub.Secure
             Log.Info($"Checking exsisting login ({login}) in saved accounts.");
             if (SettingsManager.GetSettings().Auth.SavedAccounts.Any(
                 authSavedAccount => authSavedAccount.Nickname == login
-            )) return;
+            ))
+            {
+                SettingsManager.GetSettings().Auth.AutoLogInAccountByNickname = login;
+                return;
+            }
             Log.Info($"Login ({login}) not found in saved accounts.");
             var vault = new PasswordVault();
             vault.Add(new PasswordCredential(
@@ -65,6 +69,7 @@ namespace MagicianHub.Secure
                 }
             );
             SettingsManager.GetSettings().Auth.SavedAccounts = listFromSavedAccount.ToArray();
+            SettingsManager.GetSettings().Auth.AutoLogInAccountByNickname = login;
         }
 
         public static void RemoveSecuredCreds(string login)

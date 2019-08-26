@@ -180,7 +180,7 @@
                         Margin="0,5,0,0"
                         HorizontalAlignment="Stretch"
                         Command="{Binding LoginViaSavedAccountCommand}"
-                        Content="Log in via MairwunNx"
+                        Content="{Binding LoginViaAccountText}"
                         Style="{StaticResource ButtonRevealStyle}" />
             </Grid>
         </StackPanel>

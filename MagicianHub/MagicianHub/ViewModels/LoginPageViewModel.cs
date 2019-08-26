@@ -40,11 +40,18 @@ namespace MagicianHub.ViewModels
 
         private void AutoLoginWithSavedAccount()
         {
-            int targetAccount = SettingsManager.GetSettings().Auth.AutoLogInAccountByIndex;
+            int targetAccountIndex = -1;
+            for (int i = 0; i < SettingsManager.GetSettings().Auth.SavedAccounts.Length; i++)
+            {
+                if (SettingsManager.GetSettings().Auth.SavedAccounts[i].Nickname ==
+                    SettingsManager.GetSettings().Auth.AutoLogInAccountByNickname)
+                {
+                    targetAccountIndex = i;
+                }
+            }
             if (!SavedAccountsExists) return;
-            if (targetAccount == -1) return;
-            if (targetAccount > SavedAccounts.Count - 1) return;
-            SelectedSavedAccountIndex = targetAccount;
+            if (targetAccountIndex == -1) return;
+            SelectedSavedAccountIndex = targetAccountIndex;
             LoginViaSavedAccountCommand.Execute(null);
         }
 
@@ -162,8 +169,6 @@ namespace MagicianHub.ViewModels
                         );
                         IsWrongPassword = false;
                         IsInLoginIn = false;
-                        SettingsManager.GetSettings().Auth.AutoLogInAccountByIndex 
-                            = SelectedSavedAccountIndex;
                         break;
                     case AuthorizationResponseTypes.NeedVerifyCodeByApp:
                         VerificationRequestType = VerificationRequestTypes.Application;
@@ -246,6 +251,7 @@ namespace MagicianHub.ViewModels
         public ICommand AuthenticateViaBrowserCommand { get; }
         private async void DoAuthorizationViaBrowser()
         {
+            Login = string.Empty;
             IsInLoginIn = true;
             await Authorization.Authorization.DoAuthorizationViaBrowserAsync();
         }
@@ -421,6 +427,10 @@ namespace MagicianHub.ViewModels
                 if (value == _selectedSavedAccountIndex) return;
                 _selectedSavedAccountIndex = value;
                 RaisePropertyChanged(nameof(SelectedSavedAccountIndex));
+                string loginViaLocalizedString = 
+                    ResourceLoader.GetForCurrentView().GetString("LogInViaSavedAccount");
+                if (value < 0) return;
+                LoginViaAccountText = $"{loginViaLocalizedString} {SavedAccounts[value].Nickname}";
             }
         }
 

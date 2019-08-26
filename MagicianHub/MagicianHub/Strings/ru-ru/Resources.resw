@@ -186,7 +186,10 @@
   <data name="VerificationNotifyUnderstandMessage" xml:space="preserve">
     <value>Ясно</value>
   </data>
-  <data name="RemoveSelectedAccount" xml:space="preserve">
+  <data name="RemoveSelectedAccount.Content" xml:space="preserve">
     <value>Удалить выбранный аккаунт</value>
+  </data>
+  <data name="LogInViaSavedAccount" xml:space="preserve">
+    <value>Войти через</value>
   </data>
 </root>
