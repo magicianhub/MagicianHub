@@ -148,7 +148,7 @@
                              x:Uid="ForgotPasswordLink"
                              Margin="0,15,0,0"
                              HorizontalAlignment="Right"
-                             x:Load="False"
+                             Command="{Binding RestorePasswordCommand}"
                              Content="Forgot password?"
                              Visibility="{Binding IsWrongPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
             <ListView Height="Auto"

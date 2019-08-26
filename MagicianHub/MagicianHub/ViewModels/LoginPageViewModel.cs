@@ -6,10 +6,13 @@ using MagicianHub.Extensions;
 using MagicianHub.Secure;
 using MagicianHub.Settings;
 using MagicianHub.Verification;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
+using Windows.System;
+using static MagicianHub.Logger.Logger;
 
 namespace MagicianHub.ViewModels
 {
@@ -24,6 +27,7 @@ namespace MagicianHub.ViewModels
             AuthenticateViaBrowserCommand = new RelayCommand(DoAuthorizationViaBrowser);
             RemoveSavedAccountCommand = new RelayCommand(RemoveSavedAccount);
             LoginViaSavedAccountCommand = new RelayCommand(LoginViaSavedAccount);
+            RestorePasswordCommand = new RelayCommand(RestorePassword);
             VerificationRequestType = VerificationRequestTypes.Application;
             if (SettingsManager.GetSettings().Auth.LoadSavedAccounts)
             {
@@ -31,6 +35,17 @@ namespace MagicianHub.ViewModels
                 SavedAccountsExists = SavedAccounts.Count != 0;
             }
             SelectedSavedAccountIndex = -1;
+            AutoLoginWithSavedAccount();
+        }
+
+        private void AutoLoginWithSavedAccount()
+        {
+            int targetAccount = SettingsManager.GetSettings().Auth.AutoLogInAccountByIndex;
+            if (!SavedAccountsExists) return;
+            if (targetAccount == -1) return;
+            if (SavedAccounts[targetAccount] == null) return;
+            SelectedSavedAccountIndex = targetAccount;
+            LoginViaSavedAccountCommand.Execute(null);
         }
 
         private bool ValidateCredentials()
@@ -73,6 +88,19 @@ namespace MagicianHub.ViewModels
             }
 
             InAppAuthNotifyIsOpened = true;
+        }
+
+        public ICommand RestorePasswordCommand { get; set; }
+        private async void RestorePassword()
+        {
+            var restorePasswordUrl = new Uri("https://github.com/password_reset");
+            var result = await Launcher.LaunchUriAsync(restorePasswordUrl);
+            if (!result)
+            {
+                Log.Error(
+                    $"An error occurred while opening restore password uri ({restorePasswordUrl})"
+                );
+            }
         }
 
         public ICommand RemoveSavedAccountCommand { get; set; }
@@ -132,6 +160,7 @@ namespace MagicianHub.ViewModels
                             ? $"{AccessToken}&token=true"
                             : Password
                         );
+                        IsWrongPassword = false;
                         IsInLoginIn = false;
                         break;
                     case AuthorizationResponseTypes.NeedVerifyCodeByApp:
@@ -140,18 +169,20 @@ namespace MagicianHub.ViewModels
                         SavedAccountsExists = false;
                         SelectedSavedAccountIndex = -1;
                         IsInValidation = true;
+                        IsWrongPassword = false;
                         break;
                     case AuthorizationResponseTypes.NeedVerifyCodeByPhone:
                         VerificationRequestType = VerificationRequestTypes.Phone;
                         IsInLoginIn = false;
                         IsInValidation = true;
+                        IsWrongPassword = false;
                         break;
                     case AuthorizationResponseTypes.WrongCredentials:
                         AuthorizationRequestDelay.RecalculateRequests();
                         IsInLoginIn = false;
                         AuthorizationNotify.NotifyWrongPassword(Login, Password);
-                        Login = string.Empty;
                         Password = string.Empty;
+                        IsWrongPassword = true;
                         ThrowAuthFailedInAppNotify(false);
                         break;
                     case AuthorizationResponseTypes.WrongAccessToken:
@@ -162,8 +193,8 @@ namespace MagicianHub.ViewModels
                             token: AccessToken,
                             isUseToken: UseAccessToken
                         );
-                        Login = string.Empty;
                         AccessToken = string.Empty;
+                        IsWrongPassword = true;
                         ThrowAuthFailedInAppNotify(false, true);
                         break;
                     case AuthorizationResponseTypes.UnexpectedResponse:
@@ -173,6 +204,7 @@ namespace MagicianHub.ViewModels
                             false,
                             true
                         );
+                        IsWrongPassword = true;
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
