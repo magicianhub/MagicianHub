@@ -28,6 +28,7 @@ namespace MagicianHub.ViewModels
             RemoveSavedAccountCommand = new RelayCommand(RemoveSavedAccount);
             LoginViaSavedAccountCommand = new RelayCommand(LoginViaSavedAccount);
             RestorePasswordCommand = new RelayCommand(RestorePassword);
+            AbortOperationCommand = new RelayCommand(AbortOperation);
             VerificationRequestType = VerificationRequestTypes.Application;
             if (SettingsManager.GetSettings().Auth.LoadSavedAccounts)
             {
@@ -35,7 +36,10 @@ namespace MagicianHub.ViewModels
                 SavedAccountsExists = SavedAccounts.Count != 0;
             }
             SelectedSavedAccountIndex = -1;
-            AutoLoginWithSavedAccount();
+            if (SettingsManager.GetSettings().Auth.EnableAutoLogin)
+            {
+                AutoLoginWithSavedAccount();
+            }
         }
 
         private void AutoLoginWithSavedAccount()
@@ -44,7 +48,8 @@ namespace MagicianHub.ViewModels
             for (int i = 0; i < SettingsManager.GetSettings().Auth.SavedAccounts.Length; i++)
             {
                 if (SettingsManager.GetSettings().Auth.SavedAccounts[i].Nickname ==
-                    SettingsManager.GetSettings().Auth.AutoLogInAccountByNickname)
+                    SettingsManager.GetSettings().Auth.AutoLogInAccountByNickname
+                )
                 {
                     targetAccountIndex = i;
                 }
@@ -96,6 +101,9 @@ namespace MagicianHub.ViewModels
 
             InAppAuthNotifyIsOpened = true;
         }
+        
+        public ICommand AbortOperationCommand { get; set; }
+        private void AbortOperation() => IsInLoginIn = false;
 
         public ICommand RestorePasswordCommand { get; set; }
         private async void RestorePassword()

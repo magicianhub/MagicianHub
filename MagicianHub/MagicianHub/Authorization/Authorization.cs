@@ -2,7 +2,6 @@
 using MagicianHub.Github;
 using Octokit;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.System;
 using static MagicianHub.Logger.Logger;

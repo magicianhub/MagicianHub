@@ -192,4 +192,7 @@
   <data name="LogInViaSavedAccount" xml:space="preserve">
     <value>Log in via</value>
   </data>
+  <data name="AbortAuthOperation.Content" xml:space="preserve">
+    <value>Abort operation</value>
+  </data>
 </root>

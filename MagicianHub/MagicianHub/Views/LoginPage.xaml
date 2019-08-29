@@ -61,6 +61,16 @@
                        Style="{StaticResource HeaderTextBlockStyle}"
                        Text="Just a Moment" />
         </StackPanel>
+        <!--  ReSharper disable once Xaml.StaticResourceNotResolved  -->
+        <Button x:Uid="AbortAuthOperation"
+                Width="300"
+                Margin="0,170,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding AbortOperationCommand}"
+                Content="Abort operation"
+                Style="{StaticResource ButtonRevealStyle}"
+                Visibility="{Binding IsInLoginIn, Converter={StaticResource BoolToVisibilityConverter}}" />
         <StackPanel Width="{Binding ElementName=TitleTextBlock, Path=ActualWidth}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"

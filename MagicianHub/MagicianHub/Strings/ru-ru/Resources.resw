@@ -192,4 +192,7 @@
   <data name="LogInViaSavedAccount" xml:space="preserve">
     <value>Войти через</value>
   </data>
+  <data name="AbortAuthOperation.Content" xml:space="preserve">
+    <value>Отменить задачу</value>
+  </data>
 </root>
